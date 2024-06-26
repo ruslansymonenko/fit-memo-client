@@ -1,3 +1,13 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": "next/core-web-vitals",
+  "plugins": ["@typescript-eslint"],
+  "rules": {
+    "quotes": ["error", "single", { "avoidEscape": true, "allowTemplateLiterals": true }],
+    "prefer-const": "off",
+    "semi": ["warn", "always"],
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-filename-extension": [1, { "extensions": ["ts", "tsx"] }],
+    "react/no-unknown-property": 0,
+    "@typescript-eslint/ban-ts-comment": "off"
+  }
 }

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className="page screen_container">
+    <div className="h-pageHeight">
       <Presentation />
     </div>
   );

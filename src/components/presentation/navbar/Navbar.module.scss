@@ -1,0 +1,27 @@
+.navbar {
+  @apply container mx-auto flex items-center justify-between px-6 py-2 h-navbarHeight mb-4;
+}
+
+.logo {
+  @apply w-1/4;
+}
+
+.logo_text {
+  @apply font-bold text-2xl text-primary drop-shadow-sm;
+}
+
+.navigation {
+  @apply w-2/4;
+}
+
+.navigation_link {
+  @apply mx-4;
+}
+
+.controllers {
+  @apply w-1/6;
+}
+
+.controllers_link {
+  @apply flex items-center justify-center;
+}

@@ -1,0 +1,11 @@
+.section {
+  @apply flex flex-col items-center w-full mb-20;
+}
+
+.title {
+  @apply font-bold text-5xl mb-2 text-center;
+}
+
+.subtitle {
+  @apply font-light text-center text-2xl mb-6;
+}

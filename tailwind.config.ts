@@ -1,8 +1,10 @@
 import type { Config } from 'tailwindcss';
+import { HEADER_HEIGHT, FOOTER_HEIGHT } from './src/consts/app.consts';
 
 const config: Config = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/screens/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
@@ -20,9 +22,15 @@ const config: Config = {
         secondaryDark: '#0369a1',
         secondaryLight: '#38bdf8',
         lightBg: '#f8fafc',
+        mediumBg: '#f1f5f9',
         darkBg: '#94a3b8',
         fontDark: '#0f172a',
         fontLight: '#f1f5f9',
+      },
+      height: {
+        navbarHeight: `${HEADER_HEIGHT}px`,
+        footerHeight: `${FOOTER_HEIGHT}px`,
+        pageHeight: `calc(100vh - (${HEADER_HEIGHT}px + ${FOOTER_HEIGHT}px))`,
       },
     },
   },

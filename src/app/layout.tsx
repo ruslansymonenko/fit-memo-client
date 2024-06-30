@@ -2,8 +2,6 @@ import type { Metadata } from 'next';
 import { Open_Sans } from 'next/font/google';
 import './globals.scss';
 import { SITE_NAME } from '@/consts/app.consts';
-import Navbar from '@/components/presentation/navbar/Navbar';
-import Footer from '@/components/presentation/footer/Footer';
 
 const font = Open_Sans({
   weight: ['300', '400', '500', '700'],
@@ -25,11 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${font.className} text-fontDark`}>
-        <Navbar />
-        {children}
-        <Footer />
-      </body>
+      <body className={`${font.className} text-fontDark`}>{children}</body>
     </html>
   );
 }

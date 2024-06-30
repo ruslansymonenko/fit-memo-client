@@ -12,7 +12,7 @@ const Hero: FC = () => {
       <h2 className={styles.title}>Your Workout Potential</h2>
       <h3 className={styles.subtitle}>FitMemo: Your Fitness Journey, Perfectly Organized.</h3>
       <Link className={styles.link} href="/auth/login">
-        <Button className="hover:bg-primary hover:text-fontLight transition">
+        <Button addClasses="hover:bg-primary hover:text-fontLight transition">
           <Dumbbell />
           <span className="block mx-4">Lets start</span>
         </Button>

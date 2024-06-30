@@ -4,13 +4,13 @@ import styles from './Button.module.scss';
 
 interface IButtonProps {
   children: ReactNode;
-  className?: string;
+  addClasses?: string;
   action?: () => void;
 }
 
-const Button: FC<IButtonProps> = ({ children, className, action, ...props }) => {
+const Button: FC<IButtonProps> = ({ children, addClasses, action, ...props }) => {
   return (
-    <button className={cn(styles.button, className)} {...props}>
+    <button className={cn(styles.button, addClasses)} {...props}>
       {children}
     </button>
   );

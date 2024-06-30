@@ -30,7 +30,13 @@ const config: Config = {
       height: {
         navbarHeight: `${HEADER_HEIGHT}px`,
         footerHeight: `${FOOTER_HEIGHT}px`,
-        pageHeight: `calc(100vh - (${HEADER_HEIGHT}px + ${FOOTER_HEIGHT}px))`,
+        pageHeight: `calc(100vh - ${FOOTER_HEIGHT}px)`,
+      },
+      minHeight: {
+        pageHeight: `calc(100vh - ${FOOTER_HEIGHT}px)`,
+      },
+      padding: {
+        navbarHeight: `${HEADER_HEIGHT}px`,
       },
     },
   },

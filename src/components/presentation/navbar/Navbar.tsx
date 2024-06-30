@@ -14,30 +14,32 @@ const Navbar: FC = () => {
 
   return (
     <header className={styles.navbar}>
-      <Link className={styles.logo} href="/">
-        <h1 className={styles.logo_text}>FitMemo</h1>
-      </Link>
-      <nav className={styles.navigation}>
-        {menu.map((item, index) => (
-          <Link
-            className={cn(
-              styles.navigation_link,
-              pathName === item.link ? 'text-primary' : 'text-fontDark',
-            )}
-            href={item.link}
-            key={index}
-          >
-            <span>{item.name}</span>
-          </Link>
-        ))}
-      </nav>
-      <div className={styles.controllers}>
-        <Link className={styles.controllers_link} href="/auth/login">
-          <Button>
-            <User />
-            <span className="block mx-4">Authorization</span>
-          </Button>
+      <div className={styles.content}>
+        <Link className={styles.logo} href="/">
+          <h1 className={styles.logo_text}>FitMemo</h1>
         </Link>
+        <nav className={styles.navigation}>
+          {menu.map((item, index) => (
+            <Link
+              className={cn(
+                styles.navigation_link,
+                pathName === item.link ? 'text-primary' : 'text-fontDark',
+              )}
+              href={item.link}
+              key={index}
+            >
+              <span>{item.name}</span>
+            </Link>
+          ))}
+        </nav>
+        <div className={styles.controllers}>
+          <Link className={styles.controllers_link} href="/auth/login">
+            <Button>
+              <User />
+              <span className="block mx-4">Authorization</span>
+            </Button>
+          </Link>
+        </div>
       </div>
     </header>
   );

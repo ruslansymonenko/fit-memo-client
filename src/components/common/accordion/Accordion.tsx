@@ -18,6 +18,7 @@ const Accordion: FC<IAccordionProps> = ({ items }) => {
   const [openIndexes, setOpenIndexes] = useState<boolean[]>(Array(items.length).fill(false));
 
   const toggleItem = (index: number): void => {
+    console.log('text');
     setOpenIndexes((prevOpenIndexes) =>
       prevOpenIndexes.map((isOpen, i): boolean => (i === index ? !isOpen : isOpen)),
     );
@@ -27,17 +28,19 @@ const Accordion: FC<IAccordionProps> = ({ items }) => {
     <div className={styles.accordion}>
       <ul>
         {items.map((item, index) => (
-          <li className="mb-4 shadow transition hover:shadow-lg p-2" key={index}>
-            <button
-              className="w-full flex justify-between items-center"
-              onClick={() => toggleItem(index)}
-            >
+          <li
+            className="mb-4 shadow transition hover:shadow-lg px-2 py-1"
+            key={index}
+            onClick={() => toggleItem(index)}
+          >
+            <div className="w-full h-full flex justify-between items-center">
               <span>{item.title}</span>
               <Plus size={20} />
-            </button>
+            </div>
             <div
               className={cn(
-                'bg-mediumBg p-2 rounded-md cursor-default transition-all flex justify-center items-center',
+                'bg-mediumBg p-2 rounded-md cursor-default transition-all flex justify-center' +
+                  ' items-center',
                 openIndexes[index]
                   ? 'h-20 --tw-translate-y:0 opacity-100'
                   : '--tw-translate-y:-100 h-0 opacity-0',

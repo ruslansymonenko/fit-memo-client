@@ -1,5 +1,9 @@
 .navbar {
-  @apply container mx-auto flex items-center justify-between px-6 py-2 h-navbarHeight mb-4;
+  @apply  w-full h-navbarHeight fixed bg-white z-10;
+}
+
+.content {
+  @apply container mx-auto flex items-center justify-between px-6 py-2 w-full h-full;
 }
 
 .logo {

@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import { Open_Sans } from 'next/font/google';
 import './globals.scss';
-import { SITE_NAME } from '@/consts/app.consts';
+import { SITE_NAME, SITE_DESCRIPTION } from '@/consts/seo.consts';
+import { Providers } from '@/providers/providers';
 
 const font = Open_Sans({
   weight: ['300', '400', '500', '700'],
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
     default: SITE_NAME,
     template: `%s | ${SITE_NAME}`,
   },
-  description: `${SITE_NAME}`,
+  description: `${SITE_DESCRIPTION}`,
 };
 
 export default function RootLayout({
@@ -23,7 +24,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${font.className} text-fontDark`}>{children}</body>
+      <body className={`${font.className} text-fontDark`}>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

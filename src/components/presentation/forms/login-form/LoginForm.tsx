@@ -3,6 +3,8 @@ import styles from './LoginForm.module.scss';
 import { Mail, Lock } from 'lucide-react';
 import Link from 'next/link';
 import Button from '@/components/common/button/Button';
+import { PUBLIC_URL } from '@/config/url.config';
+import Input from '@/components/common/input/Input';
 
 const LoginForm: FC = () => {
   return (
@@ -12,12 +14,7 @@ const LoginForm: FC = () => {
         <div>
           <label className={styles.input_label}>Email</label>
           <div className={styles.input_container}>
-            <input
-              name="email"
-              type="email"
-              className={styles.input}
-              placeholder="Enter user email"
-            />
+            <Input name="email" type="email" className="mr-2" placeholder="Enter user email" />
             <Mail />
           </div>
         </div>
@@ -25,12 +22,7 @@ const LoginForm: FC = () => {
         <div>
           <label className={styles.input_label}>Password</label>
           <div className={styles.input_container}>
-            <input
-              name="password"
-              type="password"
-              className={styles.input}
-              placeholder="Enter password"
-            />
+            <Input name="password" type="password" className="mr-2" placeholder="Enter password" />
             <Lock />
           </div>
         </div>
@@ -59,7 +51,7 @@ const LoginForm: FC = () => {
         </div>
         <p className="text-gray-800 text-sm !mt-8 text-center">
           Don't have an account?{' '}
-          <Link href="/auth/register" className={styles.link}>
+          <Link href={`${PUBLIC_URL.register()}`} className={styles.link}>
             Register here
           </Link>
         </p>

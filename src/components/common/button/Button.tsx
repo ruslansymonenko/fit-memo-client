@@ -1,8 +1,8 @@
-import { FC, ReactNode } from 'react';
+import { ButtonHTMLAttributes, FC, ReactNode } from 'react';
 import cn from 'clsx';
 import styles from './Button.module.scss';
 
-interface IButtonProps {
+interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   addClasses?: string;
   action?: () => void;

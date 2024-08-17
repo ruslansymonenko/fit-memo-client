@@ -8,6 +8,7 @@ import styles from './Navbar.module.scss';
 import { usePathname } from 'next/navigation';
 import Button from '@/components/common/button/Button';
 import { User } from 'lucide-react';
+import { PUBLIC_URL } from '@/config/url.config';
 
 const Navbar: FC = () => {
   const pathName: string = usePathname();
@@ -33,7 +34,7 @@ const Navbar: FC = () => {
           ))}
         </nav>
         <div className={styles.controllers}>
-          <Link className={styles.controllers_link} href="/auth/login">
+          <Link className={styles.controllers_link} href={PUBLIC_URL.login()}>
             <Button>
               <User />
               <span className="block mx-4">Authorization</span>

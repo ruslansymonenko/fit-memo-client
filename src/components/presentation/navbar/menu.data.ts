@@ -1,3 +1,5 @@
+import { PUBLIC_URL } from '@/config/url.config';
+
 export interface IMenuItem {
   link: string;
   name: string;
@@ -5,19 +7,19 @@ export interface IMenuItem {
 
 export const menu: IMenuItem[] = [
   {
-    link: '/',
+    link: PUBLIC_URL.home(),
     name: 'Main',
   },
   {
-    link: '/features',
+    link: PUBLIC_URL.features(),
     name: 'Features',
   },
   {
-    link: '/faq',
+    link: PUBLIC_URL.faq(),
     name: 'FAQ',
   },
   {
-    link: '/pricing',
+    link: PUBLIC_URL.pricing(),
     name: 'Pricing',
   },
 ];

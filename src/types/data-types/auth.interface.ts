@@ -1,4 +1,4 @@
-import { IUser } from '@/types/user.interface';
+import { IUser } from '@/types/data-types/user.interface';
 
 export interface IAuthForm {
   email: string;

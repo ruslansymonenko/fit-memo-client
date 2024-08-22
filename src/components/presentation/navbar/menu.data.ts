@@ -7,7 +7,7 @@ export interface IMenuItem {
 
 export const menu: IMenuItem[] = [
   {
-    link: PUBLIC_URL.home(),
+    link: PUBLIC_URL.main(),
     name: 'Main',
   },
   {

@@ -16,7 +16,7 @@ const Navbar: FC = () => {
   return (
     <header className={styles.navbar}>
       <div className={styles.content}>
-        <Link className={styles.logo} href="/">
+        <Link className={styles.logo} href={PUBLIC_URL.home()}>
           <h1 className={styles.logo_text}>FitMemo</h1>
         </Link>
         <nav className={styles.navigation}>

@@ -27,6 +27,9 @@ const config: Config = {
         fontDark: '#0f172a',
         fontLight: '#f1f5f9',
       },
+      fill: {
+        primary: '#ea580c',
+      },
       height: {
         navbarHeight: `${HEADER_HEIGHT}px`,
         footerHeight: `${FOOTER_HEIGHT}px`,

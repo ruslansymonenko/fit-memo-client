@@ -3,7 +3,8 @@ export const APP_URL = process.env.APP_URL as string;
 export const PUBLIC_URL = {
   root: (url = '') => `${url ? url : ''}`,
 
-  home: () => PUBLIC_URL.root('/'),
+  main: () => PUBLIC_URL.root('/'),
+  home: () => PUBLIC_URL.root('/home'),
   register: () => PUBLIC_URL.root('/auth/register'),
   login: () => PUBLIC_URL.root('/auth/login'),
   features: () => PUBLIC_URL.root('/features'),
@@ -14,7 +15,10 @@ export const PUBLIC_URL = {
 export const PRIVATE_URL = {
   root: (url = '') => `${APP_URL}${url ? url : ''}`,
 
-  home: () => PUBLIC_URL.root(`/main`),
+  home: () => PUBLIC_URL.root(`/dashboard`),
+  workouts: () => PUBLIC_URL.root(`/dashboard/workouts`),
+  statistics: () => PUBLIC_URL.root(`/dashboard/statistics`),
+  tags: () => PUBLIC_URL.root(`/dashboard/tags`),
 };
 
 export const ADMIN_URL = {

@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import styles from '@/components/presentation/forms/register-form/RegisterForm.module.scss';
 import cn from 'clsx';
 
 interface IInputProps {

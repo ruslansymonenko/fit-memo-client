@@ -1,5 +1,5 @@
 .form_container {
-  @apply p-8 rounded-2xl bg-white shadow;
+  @apply p-4 rounded-2xl bg-white shadow;
 }
 
 .title {
@@ -11,11 +11,11 @@
 }
 
 .input_container {
-  @apply relative flex items-center;
+  @apply relative flex items-center justify-center h-24;
 }
 
 .input_label {
-  @apply text-gray-800 text-sm mb-2 block
+  @apply text-gray-800 text-sm mb-2 block font-bold;
 }
 
 .controllers {

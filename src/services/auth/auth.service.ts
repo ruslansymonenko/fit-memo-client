@@ -1,16 +1,26 @@
-import { IAuthForm, IAuthResponse } from '@/types/auth.interface';
+import { IAuthForm, IAuthResponse } from '@/types/data-types/auth.interface';
 import { axiosPublic } from '@/api/api.interceptors';
 import { API_URL } from '@/config/api.config';
 import { removeTokenFromStorage, saveAccessToken } from '@/services/auth/auth-token.service';
+import { IServiceResponse } from '@/types/app-types/service.interface';
+import { AxiosError } from 'axios';
 
 enum EnumAuthPaths {
-  LOGIN = 'login',
-  REGISTER = 'register',
-  ACCESS_TOKEN = 'access-token',
-  LOGOUT = 'logout',
+  LOGIN = '/login',
+  REGISTER = '/register',
+  ACCESS_TOKEN = '/access-token',
+  LOGOUT = '/logout',
 }
 
 class AuthService {
+  sendStatus<T>(status: boolean, message: string, data: T): IServiceResponse<T> {
+    return {
+      status: status,
+      message: message,
+      data: data,
+    };
+  }
+
   async register(data: IAuthForm) {
     try {
       const response = await axiosPublic<IAuthResponse>({
@@ -23,7 +33,11 @@ class AuthService {
 
       return response;
     } catch (error) {
-      console.error(error);
+      if (error instanceof Error) {
+        throw error.message;
+      } else {
+        throw new Error('An unknown error occurred');
+      }
     }
   }
 
@@ -39,7 +53,12 @@ class AuthService {
 
       return response;
     } catch (error) {
-      console.error(error);
+      console.log(error);
+      if (error instanceof AxiosError) {
+        throw error;
+      } else {
+        throw new Error('An unknown error occurred');
+      }
     }
   }
 
@@ -54,7 +73,11 @@ class AuthService {
 
       return response;
     } catch (error) {
-      console.error(error);
+      if (error instanceof Error) {
+        throw error;
+      } else {
+        throw new Error('An unknown error occurred');
+      }
     }
   }
 
@@ -69,7 +92,11 @@ class AuthService {
 
       return response;
     } catch (error) {
-      console.error(error);
+      if (error instanceof Error) {
+        throw error;
+      } else {
+        throw new Error('An unknown error occurred');
+      }
     }
   }
 }

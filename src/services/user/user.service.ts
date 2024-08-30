@@ -1,0 +1,29 @@
+import { axiosPrivate } from '@/api/api.interceptors';
+import { API_URL } from '@/config/api.config';
+import { IUser } from '@/types/data-types/user.interface';
+
+enum EnumUserPaths {
+  GET_BY_ID = '/by-id',
+  UPDATE = '/update',
+}
+
+class UserService {
+  async getUserById() {
+    try {
+      const response = await axiosPrivate<IUser>({
+        url: API_URL.user(EnumUserPaths.GET_BY_ID),
+        method: 'GET',
+      });
+
+      return response;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw error.message;
+      } else {
+        throw new Error('An unknown error occurred');
+      }
+    }
+  }
+}
+
+export const userService = new UserService();

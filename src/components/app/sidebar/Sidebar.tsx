@@ -1,7 +1,7 @@
 'use client';
 
 import { FC } from 'react';
-import styles from './LeftSidebar.module.scss';
+import styles from './Sidebar.module.scss';
 import Link from 'next/link';
 import { appPages } from '@/components/app/sidebar/nav-data';
 import { LogOut } from 'lucide-react';

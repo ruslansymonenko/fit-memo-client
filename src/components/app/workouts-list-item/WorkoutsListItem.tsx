@@ -1,14 +1,14 @@
 import { FC } from 'react';
-import { IWorkout } from '@/types/data-types/workout.interface';
+import { IWorkoutResponse } from '@/types/server-response-types/workout-response.interface';
 
 interface IWorkoutsListItemProps {
-  data: IWorkout;
+  data: IWorkoutResponse;
 }
 
-const WorkoutsListItem: FC = () => {
+const WorkoutsListItem: FC<IWorkoutsListItemProps> = ({ data }) => {
   return (
     <li className="my-1 h-16 py-4 px-2 shadow-lg rounded-lg">
-      <div className="p-2">Workout</div>
+      <div className="p-2">{data.name}</div>
     </li>
   );
 };

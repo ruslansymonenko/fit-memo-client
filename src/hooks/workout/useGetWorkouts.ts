@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { workoutService } from '@/services/workout/workout.service';
 
-export const useGetWorkoutBuId = (id: number) => {
+export const useGetWorkoutById = (id: number) => {
   const { data, error, isLoading } = useQuery({
     queryKey: ['workouts-by-id'],
     queryFn: () => workoutService.getById(id),

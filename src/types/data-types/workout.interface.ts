@@ -1,4 +1,4 @@
-enum EnumWorkoutStatus {
+export enum EnumWorkoutStatus {
   NEW = 'NEW',
   IN_PROGRESS = 'IN_PROGRESS',
   DONE = 'DONE',

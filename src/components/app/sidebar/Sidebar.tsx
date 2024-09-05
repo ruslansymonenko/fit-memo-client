@@ -28,7 +28,7 @@ const Sidebar: FC = () => {
   };
 
   return (
-    <div className="w-3/12 shadow-md h-screen px-4 py-8 relative">
+    <section className="w-3/12 shadow-md h-screen px-4 py-8 relative">
       <h1 className="text-primary text-3xl font-bold mb-6">FitMemo</h1>
       <nav className="mb-8">
         <ul>
@@ -61,7 +61,7 @@ const Sidebar: FC = () => {
       <div className="absolute top-4 right-4 cursor-pointer">
         <ChevronsLeft />
       </div>
-    </div>
+    </section>
   );
 };
 

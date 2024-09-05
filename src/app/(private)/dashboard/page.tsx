@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <div className="w-9/12">
+    <div className="w-full">
       <Main />
     </div>
   );

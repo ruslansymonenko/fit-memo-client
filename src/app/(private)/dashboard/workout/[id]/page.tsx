@@ -1,16 +1,16 @@
 import { Metadata } from 'next';
 import { NO_INDEX_PAGE } from '@/consts/seo.consts';
-import Workouts from '@/screens/workouts/Workouts';
+import Workout from '@/screens/workout/Workout';
 
 export const metadata: Metadata = {
-  title: 'Workouts',
+  title: 'Workout',
   ...NO_INDEX_PAGE,
 };
 
-export default function Page() {
+export default function Page({ params }: { params: { id: string } }) {
   return (
     <div className="w-full">
-      <Workouts />
+      <Workout id={parseInt(params.id)} />
     </div>
   );
 }

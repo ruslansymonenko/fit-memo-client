@@ -7,6 +7,7 @@ import { EnumWorkoutStatus } from '@/types/data-types/workout.interface';
 import { ITag } from '@/types/data-types/tag.interface';
 import Link from 'next/link';
 import { PRIVATE_URL } from '@/config/url.config';
+import { getStatusClass } from '@/utils/getStatusClass/getStatusClass';
 
 interface IWorkoutsListItemProps {
   data: IWorkoutResponse;
@@ -14,19 +15,6 @@ interface IWorkoutsListItemProps {
 
 const WorkoutsListItem: FC<IWorkoutsListItemProps> = ({ data }) => {
   const [tagsShortList, setTagsShortList] = useState<ITag[]>([]);
-
-  const getStatusClass = (status: string) => {
-    switch (status) {
-      case EnumWorkoutStatus.NEW:
-        return 'text-new';
-      case EnumWorkoutStatus.IN_PROGRESS:
-        return 'text-inProgress';
-      case EnumWorkoutStatus.DONE:
-        return 'text-done';
-      default:
-        return 'text-fontDark';
-    }
-  };
 
   useEffect(() => {
     if (data.tags && data.tags.length > 2) {
@@ -37,7 +25,7 @@ const WorkoutsListItem: FC<IWorkoutsListItemProps> = ({ data }) => {
   }, [data.tags]);
 
   return (
-    <li className="my-1 h-24 py-4 px-2 shadow-lg rounded-lg cursor-pointer hover:scale-105 transition-all flex flex-col items-center justify-between">
+    <li className="my-1 h-24 py-4 px-2 shadow-lg rounded-lg cursor-pointer hover:shadow-xl transition-all flex flex-col items-center justify-between">
       <Link
         className="w-full h-full flex flex-col items-center justify-between"
         href={PRIVATE_URL.workout(data.id.toString())}

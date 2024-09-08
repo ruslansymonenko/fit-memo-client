@@ -1,9 +1,10 @@
 'use client';
 
 import { FC, useEffect, useState } from 'react';
-import { useGetAllWorkouts, useGetWorkoutById } from '@/hooks/workout/useGetWorkouts';
+import { useGetWorkoutById } from '@/hooks/workout/useGetWorkouts';
 import { IWorkoutResponse } from '@/types/server-response-types/workout-response.interface';
 import WorkoutHeader from '@/components/app/workout-header/WorkoutHeader';
+import WorkoutData from '@/components/app/workout-data/WorkoutData';
 
 interface IWorkoutProps {
   id: number;
@@ -22,6 +23,7 @@ const Workout: FC<IWorkoutProps> = ({ id }) => {
   return (
     <section className="py-4 px-8">
       <WorkoutHeader workout={workoutData} />
+      <WorkoutData workout={workoutData} />
     </section>
   );
 };

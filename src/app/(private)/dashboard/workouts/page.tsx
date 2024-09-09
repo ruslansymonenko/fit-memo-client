@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { NO_INDEX_PAGE } from '@/consts/seo.consts';
+import Workouts from '@/screens/workouts/Workouts';
 
 export const metadata: Metadata = {
   title: 'Workouts',
@@ -7,5 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <div>Workouts</div>;
+  return (
+    <div className="w-full">
+      <Workouts />
+    </div>
+  );
 }

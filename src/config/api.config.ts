@@ -1,4 +1,5 @@
 export const SERVER_URL = process.env.SERVER_URL as string;
+export const SERVER_URL_WITHOUT_API_PREFIX = process.env.SERVER_URL_WITHOUT_API_PREFIX as string;
 
 export const API_URL = {
   root: (url = '') => `${url ? url : ''}`,

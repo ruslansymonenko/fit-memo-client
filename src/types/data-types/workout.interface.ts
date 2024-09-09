@@ -1,4 +1,4 @@
-enum EnumWorkoutStatus {
+export enum EnumWorkoutStatus {
   NEW = 'NEW',
   IN_PROGRESS = 'IN_PROGRESS',
   DONE = 'DONE',
@@ -11,7 +11,7 @@ export interface IWorkout {
   name: string;
   date: string;
   status: EnumWorkoutStatus;
-  duration: number; //in milliseconds
+  duration: number;
   isFavorite: boolean;
   userId: number;
   workoutTypeId: number;

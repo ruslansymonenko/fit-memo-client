@@ -1,14 +1,20 @@
+'use client';
+
 import { FC } from 'react';
 import WorkoutsListItem from '@/components/app/workouts-list-item/WorkoutsListItem';
+import Loader from '@/components/common/loader/Loader';
+import { IWorkoutResponse } from '@/types/server-response-types/workout-response.interface';
 
-const WorkoutsList: FC = () => {
+interface IWorkoutsListProps {
+  data: IWorkoutResponse[];
+  isLoading: boolean;
+}
+
+const WorkoutsList: FC<IWorkoutsListProps> = ({ data, isLoading }) => {
   return (
     <div>
-      <h3 className="font-bold mb-2">Latest workouts</h3>
       <ul className="flex flex-col">
-        <WorkoutsListItem />
-        <WorkoutsListItem />
-        <WorkoutsListItem />
+        {isLoading ? <Loader /> : data.map((workout) => <WorkoutsListItem data={workout} />)}
       </ul>
     </div>
   );

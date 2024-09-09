@@ -26,6 +26,15 @@ const config: Config = {
         darkBg: '#94a3b8',
         fontDark: '#0f172a',
         fontLight: '#f1f5f9',
+        done: '#00b894',
+        inProgress: '#ff7675',
+        new: '#74b9ff',
+      },
+      textColor: {
+        primary: '#ea580c',
+        done: '#00b894',
+        inProgress: '#ff7675',
+        new: '#74b9ff',
       },
       fill: {
         primary: '#ea580c',

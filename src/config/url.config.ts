@@ -13,10 +13,13 @@ export const PUBLIC_URL = {
 };
 
 export const PRIVATE_URL = {
-  root: (url = '') => `${APP_URL}${url ? url : ''}`,
+  root: (url: string = '') => `${APP_URL}${url ? url : ''}`,
 
   home: () => PUBLIC_URL.root(`/dashboard`),
   workouts: () => PUBLIC_URL.root(`/dashboard/workouts`),
+  workout: (id: string = '') => PUBLIC_URL.root(`/dashboard/workout/${id}`),
+  workoutTypes: () => PUBLIC_URL.root(`/dashboard/workout-types`),
+  exercises: () => PUBLIC_URL.root(`/dashboard/exercises`),
   statistics: () => PUBLIC_URL.root(`/dashboard/statistics`),
   tags: () => PUBLIC_URL.root(`/dashboard/tags`),
 };

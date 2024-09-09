@@ -11,7 +11,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
   return (
     <div className="flex align-center justify-between w-full h-full">
       <Sidebar isOpen={isSidebarOpen} />
-      <main className={cn('transition-all w-10/12', isSidebarOpen ? 'w-9/12' : 'w-11/12')}>
+      <main className={cn('transition-all', isSidebarOpen ? 'w-10/12' : 'w-11/12')}>
         {children}
       </main>
     </div>

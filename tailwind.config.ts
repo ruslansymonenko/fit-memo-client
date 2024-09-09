@@ -30,6 +30,12 @@ const config: Config = {
         inProgress: '#ff7675',
         new: '#74b9ff',
       },
+      textColor: {
+        primary: '#ea580c',
+        done: '#00b894',
+        inProgress: '#ff7675',
+        new: '#74b9ff',
+      },
       fill: {
         primary: '#ea580c',
       },

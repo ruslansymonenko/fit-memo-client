@@ -1,4 +1,4 @@
-enum EnumMeasuresTypes {
+export enum EnumMeasuresTypes {
   KILOGRAM = 'KILOGRAM',
   KILOMETERS = 'KILOMETERS',
   REPEATS = 'REPEATS',

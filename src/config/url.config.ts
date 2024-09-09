@@ -18,6 +18,8 @@ export const PRIVATE_URL = {
   home: () => PUBLIC_URL.root(`/dashboard`),
   workouts: () => PUBLIC_URL.root(`/dashboard/workouts`),
   workout: (id: string = '') => PUBLIC_URL.root(`/dashboard/workout/${id}`),
+  workoutTypes: () => PUBLIC_URL.root(`/dashboard/workout-types`),
+  exercises: () => PUBLIC_URL.root(`/dashboard/exercises`),
   statistics: () => PUBLIC_URL.root(`/dashboard/statistics`),
   tags: () => PUBLIC_URL.root(`/dashboard/tags`),
 };

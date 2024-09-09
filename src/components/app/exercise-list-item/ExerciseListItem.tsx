@@ -10,11 +10,11 @@ interface IExerciseListItemProps {
 const ExerciseListItem: FC<IExerciseListItemProps> = ({ exercise, exerciseNumber }) => {
   return (
     <li className="shadow-lg min-h-32 p-4 rounded-md">
-      <div className="flex mb-2">
+      <div className="flex mb-4">
         <h5 className="underline-offset-4 underline mr-6">Exercise: {exerciseNumber}</h5>
         <span className="font-bold text-secondary">{exercise.exerciseType.name}</span>
       </div>
-      <SetList sets={exercise.sets} />
+      <SetList sets={exercise.sets} measure={exercise.exerciseType.measure} />
     </li>
   );
 };

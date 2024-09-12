@@ -1,17 +1,43 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { menu } from './menu.data';
 import cn from 'clsx';
 import styles from './Navbar.module.scss';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Button from '@/components/common/button/Button';
-import { User } from 'lucide-react';
+import { LogOut, User } from 'lucide-react';
 import { PUBLIC_URL } from '@/config/url.config';
+import { authService } from '@/services/auth/auth.service';
+import toast from 'react-hot-toast';
 
 const Navbar: FC = () => {
   const pathName: string = usePathname();
+  const router = useRouter();
+  const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    const cookies = document.cookie
+      .split('; ')
+      .find((row) => row.startsWith('accessToken='))
+      ?.split('=')[1];
+
+    if (cookies) {
+      setToken(cookies);
+    }
+  }, []);
+
+  const handleLogout = async () => {
+    const serviceResponse = await authService.logout();
+
+    if (serviceResponse.data) {
+      toast.success('Successfully logged out!');
+      router.replace(PUBLIC_URL.login());
+    } else {
+      toast.error('Some error, please try later');
+    }
+  };
 
   return (
     <header className={styles.navbar}>
@@ -34,12 +60,29 @@ const Navbar: FC = () => {
           ))}
         </nav>
         <div className={styles.controllers}>
-          <Link className={styles.controllers_link} href={PUBLIC_URL.login()}>
-            <Button>
-              <User />
-              <span className="block mx-4">Authorization</span>
-            </Button>
-          </Link>
+          {token ? (
+            <div className="flex items-center">
+              <Link className={styles.controllers_link} href={PUBLIC_URL.login()}>
+                <Button addClasses={'hover:shadow-lg hover:bg-primary'}>
+                  <div>
+                    <User />
+                  </div>
+                </Button>
+              </Link>
+              <Button onClick={handleLogout} addClasses={'hover:shadow-lg hover:bg-primary'}>
+                <LogOut />
+              </Button>
+            </div>
+          ) : (
+            <Link className={styles.controllers_link} href={PUBLIC_URL.login()}>
+              <Button>
+                <div>
+                  <User />
+                </div>
+                <span className="mx-4 text-sm">Authorization</span>
+              </Button>
+            </Link>
+          )}
         </div>
       </div>
     </header>

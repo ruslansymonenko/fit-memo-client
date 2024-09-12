@@ -1,31 +1,28 @@
 import { axiosPrivate } from '@/api/api.interceptors';
 import { API_URL } from '@/config/api.config';
-import { IWorkoutTypeResponse } from '@/types/server-response-types/workoutType-response-type';
+import { IExerciseResponse } from '@/types/server-response-types/exercise-response.interface';
 
-enum EnumWorkoutTypesPaths {
+enum EnumExercisePaths {
   CREATE = '/create',
-  GET_ALL = '/get-all',
   GET_BY_ID = '/by-id',
+  GET_BY_WORKOUT_ID = '/get-by-workout',
   UPDATE = '/update',
   DELETE = '/delete',
 }
 
-interface ICreateWorkoutType {
-  name: string;
-  iconId?: string;
+interface ICreateExercise {
+  exerciseId: number;
 }
 
-interface IUpdateWorkoutType {
-  name?: string;
-  isFavorite: boolean;
-  iconId?: string;
+interface IUpdateExercise {
+  exerciseId: number;
 }
 
-class WorkoutTypesService {
-  async create(data: ICreateWorkoutType) {
+class ExerciseService {
+  async create(data: ICreateExercise) {
     try {
-      const response = await axiosPrivate<IWorkoutTypeResponse>({
-        url: API_URL.workoutType(EnumWorkoutTypesPaths.CREATE),
+      const response = await axiosPrivate<IExerciseResponse>({
+        url: API_URL.exercise(EnumExercisePaths.CREATE),
         method: 'POST',
         data: data,
       });
@@ -40,27 +37,10 @@ class WorkoutTypesService {
     }
   }
 
-  async getAll() {
-    try {
-      const response = await axiosPrivate<IWorkoutTypeResponse[]>({
-        url: API_URL.workoutType(EnumWorkoutTypesPaths.GET_ALL),
-        method: 'GET',
-      });
-
-      return response;
-    } catch (error) {
-      if (error instanceof Error) {
-        throw error.message;
-      } else {
-        throw new Error('An unknown error occurred');
-      }
-    }
-  }
-
   async getById(id: number) {
     try {
-      const response = await axiosPrivate<IWorkoutTypeResponse>({
-        url: API_URL.workoutType(`${EnumWorkoutTypesPaths.GET_BY_ID}/${id}`),
+      const response = await axiosPrivate<IExerciseResponse>({
+        url: API_URL.exercise(`${EnumExercisePaths.GET_BY_ID}/${id}`),
         method: 'GET',
       });
 
@@ -74,10 +54,27 @@ class WorkoutTypesService {
     }
   }
 
-  async update(id: number, data: IUpdateWorkoutType) {
+  async getByWorkoutId(id: number) {
     try {
-      const response = await axiosPrivate<IWorkoutTypeResponse>({
-        url: API_URL.workoutType(`${EnumWorkoutTypesPaths.UPDATE}/${id}`),
+      const response = await axiosPrivate<IExerciseResponse>({
+        url: API_URL.exercise(`${EnumExercisePaths.GET_BY_WORKOUT_ID}/${id}`),
+        method: 'GET',
+      });
+
+      return response;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw error.message;
+      } else {
+        throw new Error('An unknown error occurred');
+      }
+    }
+  }
+
+  async update(id: number, data: IUpdateExercise) {
+    try {
+      const response = await axiosPrivate<IExerciseResponse>({
+        url: API_URL.exercise(`${EnumExercisePaths.UPDATE}/${id}`),
         method: 'PUT',
         data: data,
       });
@@ -94,8 +91,8 @@ class WorkoutTypesService {
 
   async delete(id: number) {
     try {
-      const response = await axiosPrivate<IWorkoutTypeResponse>({
-        url: API_URL.workoutType(`${EnumWorkoutTypesPaths.DELETE}/${id}`),
+      const response = await axiosPrivate<IExerciseResponse>({
+        url: API_URL.exercise(`${EnumExercisePaths.DELETE}/${id}`),
         method: 'DELETE',
       });
 
@@ -110,4 +107,4 @@ class WorkoutTypesService {
   }
 }
 
-export const workoutTypesService = new WorkoutTypesService();
+export const exerciseService = new ExerciseService();

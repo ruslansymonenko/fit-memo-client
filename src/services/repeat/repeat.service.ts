@@ -1,31 +1,31 @@
 import { axiosPrivate } from '@/api/api.interceptors';
 import { API_URL } from '@/config/api.config';
-import { IWorkoutTypeResponse } from '@/types/server-response-types/workoutType-response-type';
+import { IRepeat } from '@/types/data-types/repeat.interface';
 
-enum EnumWorkoutTypesPaths {
+enum EnumRepeatPaths {
   CREATE = '/create',
-  GET_ALL = '/get-all',
   GET_BY_ID = '/by-id',
+  GET_BY_SET_ID = '/get-by-set',
   UPDATE = '/update',
   DELETE = '/delete',
 }
 
-interface ICreateWorkoutType {
-  name: string;
-  iconId?: string;
+interface ICreateRepeat {
+  quantity?: number;
+  value: number;
+  setId: number;
 }
 
-interface IUpdateWorkoutType {
-  name?: string;
-  isFavorite: boolean;
-  iconId?: string;
+interface IUpdateRepeat {
+  quantity?: number;
+  value?: number;
 }
 
-class WorkoutTypesService {
-  async create(data: ICreateWorkoutType) {
+class RepeatService {
+  async create(data: ICreateRepeat) {
     try {
-      const response = await axiosPrivate<IWorkoutTypeResponse>({
-        url: API_URL.workoutType(EnumWorkoutTypesPaths.CREATE),
+      const response = await axiosPrivate<IRepeat>({
+        url: API_URL.repeat(EnumRepeatPaths.CREATE),
         method: 'POST',
         data: data,
       });
@@ -40,27 +40,10 @@ class WorkoutTypesService {
     }
   }
 
-  async getAll() {
-    try {
-      const response = await axiosPrivate<IWorkoutTypeResponse[]>({
-        url: API_URL.workoutType(EnumWorkoutTypesPaths.GET_ALL),
-        method: 'GET',
-      });
-
-      return response;
-    } catch (error) {
-      if (error instanceof Error) {
-        throw error.message;
-      } else {
-        throw new Error('An unknown error occurred');
-      }
-    }
-  }
-
   async getById(id: number) {
     try {
-      const response = await axiosPrivate<IWorkoutTypeResponse>({
-        url: API_URL.workoutType(`${EnumWorkoutTypesPaths.GET_BY_ID}/${id}`),
+      const response = await axiosPrivate<IRepeat>({
+        url: API_URL.repeat(`${EnumRepeatPaths.GET_BY_ID}/${id}`),
         method: 'GET',
       });
 
@@ -74,10 +57,27 @@ class WorkoutTypesService {
     }
   }
 
-  async update(id: number, data: IUpdateWorkoutType) {
+  async getBySetId(id: number) {
     try {
-      const response = await axiosPrivate<IWorkoutTypeResponse>({
-        url: API_URL.workoutType(`${EnumWorkoutTypesPaths.UPDATE}/${id}`),
+      const response = await axiosPrivate<IRepeat>({
+        url: API_URL.repeat(`${EnumRepeatPaths.GET_BY_SET_ID}/${id}`),
+        method: 'GET',
+      });
+
+      return response;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw error.message;
+      } else {
+        throw new Error('An unknown error occurred');
+      }
+    }
+  }
+
+  async update(id: number, data: IUpdateRepeat) {
+    try {
+      const response = await axiosPrivate<IRepeat>({
+        url: API_URL.repeat(`${EnumRepeatPaths.UPDATE}/${id}`),
         method: 'PUT',
         data: data,
       });
@@ -94,8 +94,8 @@ class WorkoutTypesService {
 
   async delete(id: number) {
     try {
-      const response = await axiosPrivate<IWorkoutTypeResponse>({
-        url: API_URL.workoutType(`${EnumWorkoutTypesPaths.DELETE}/${id}`),
+      const response = await axiosPrivate<IRepeat>({
+        url: API_URL.repeat(`${EnumRepeatPaths.DELETE}/${id}`),
         method: 'DELETE',
       });
 
@@ -110,4 +110,4 @@ class WorkoutTypesService {
   }
 }
 
-export const workoutTypesService = new WorkoutTypesService();
+export const repeatService = new RepeatService();

@@ -7,13 +7,9 @@ import toast from 'react-hot-toast';
 import { PRIVATE_URL } from '@/config/url.config';
 import { AxiosError } from 'axios';
 import { getErrorMessage } from '@/utils/getErrorMessage/getErrorMessage';
-import { useDispatch } from 'react-redux';
-import { setUser } from '@/store/slices/user-slices/userSlice';
-import { AppDispatch } from '@/store';
 
 export function useAuthForm(type: 'login' | 'register') {
   const router = useRouter();
-  const dispatch: AppDispatch = useDispatch();
 
   const form = useForm<IAuthForm>({
     mode: 'onChange',
@@ -30,7 +26,6 @@ export function useAuthForm(type: 'login' | 'register') {
     },
     onSuccess(responseData) {
       form.reset();
-      dispatch(setUser(responseData.data.user));
       toast.success('Successfully authorization');
       router.replace(PRIVATE_URL.home());
     },

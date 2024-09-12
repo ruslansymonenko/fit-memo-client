@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <div className="w-full">
+    <div className="w-full h-full">
       <WorkoutTypes />
     </div>
   );

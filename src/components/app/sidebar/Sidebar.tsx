@@ -13,7 +13,7 @@ import { ChevronsLeft, ChevronsRight } from 'lucide-react';
 import cn from 'clsx';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/store';
-import { toogleIsOpen } from '@/store/slices/sidebarSlice';
+import { toggleIsSidebarOpen } from '@/store/slices/sidebarSlice';
 
 interface ISidebarProps {
   isOpen: boolean;
@@ -36,7 +36,7 @@ const Sidebar: FC<ISidebarProps> = ({ isOpen }) => {
   };
 
   const handleSidebarOpening = () => {
-    dispatch(toogleIsOpen());
+    dispatch(toggleIsSidebarOpen());
   };
 
   return (

@@ -1,6 +1,6 @@
 import { axiosPrivate } from '@/api/api.interceptors';
 import { API_URL } from '@/config/api.config';
-import { IWorkoutTypeResponse } from '@/types/server-response-types/workoutType-response-type';
+import { IWorkoutTypeIcons } from '@/types/data-types/workout-type-icons.interface';
 
 enum EnumWorkoutTypesPaths {
   CREATE = '/create',
@@ -10,24 +10,27 @@ enum EnumWorkoutTypesPaths {
   DELETE = '/delete',
 }
 
-interface ICreateWorkoutType {
-  name: string;
-  iconId?: number;
+interface ICreateWorkoutTypeIcon {
+  icon: File;
 }
 
-interface IUpdateWorkoutType {
-  name?: string;
-  isFavorite: boolean;
-  iconId?: number;
+interface IUpdateWorkoutTypeIcon {
+  icon: File;
 }
 
-class WorkoutTypesService {
-  async create(data: ICreateWorkoutType) {
+class WorkoutTypeIconsService {
+  async create(data: ICreateWorkoutTypeIcon) {
     try {
-      const response = await axiosPrivate<IWorkoutTypeResponse>({
-        url: API_URL.workoutType(EnumWorkoutTypesPaths.CREATE),
+      const formData = new FormData();
+      formData.append('icon', data.icon);
+
+      const response = await axiosPrivate<IWorkoutTypeIcons>({
+        url: API_URL.workoutTypeIcons(EnumWorkoutTypesPaths.CREATE),
         method: 'POST',
-        data: data,
+        data: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       });
 
       return response;
@@ -42,8 +45,8 @@ class WorkoutTypesService {
 
   async getAll() {
     try {
-      const response = await axiosPrivate<IWorkoutTypeResponse[]>({
-        url: API_URL.workoutType(EnumWorkoutTypesPaths.GET_ALL),
+      const response = await axiosPrivate<IWorkoutTypeIcons[]>({
+        url: API_URL.workoutTypeIcons(EnumWorkoutTypesPaths.GET_ALL),
         method: 'GET',
       });
 
@@ -59,8 +62,8 @@ class WorkoutTypesService {
 
   async getById(id: number) {
     try {
-      const response = await axiosPrivate<IWorkoutTypeResponse>({
-        url: API_URL.workoutType(`${EnumWorkoutTypesPaths.GET_BY_ID}/${id}`),
+      const response = await axiosPrivate<IWorkoutTypeIcons>({
+        url: API_URL.workoutTypeIcons(`${EnumWorkoutTypesPaths.GET_BY_ID}/${id}`),
         method: 'GET',
       });
 
@@ -74,12 +77,18 @@ class WorkoutTypesService {
     }
   }
 
-  async update(id: number, data: IUpdateWorkoutType) {
+  async update(id: number, data: IUpdateWorkoutTypeIcon) {
     try {
-      const response = await axiosPrivate<IWorkoutTypeResponse>({
-        url: API_URL.workoutType(`${EnumWorkoutTypesPaths.UPDATE}/${id}`),
+      const formData = new FormData();
+      formData.append('icon', data.icon);
+
+      const response = await axiosPrivate<IWorkoutTypeIcons>({
+        url: API_URL.workoutTypeIcons(`${EnumWorkoutTypesPaths.UPDATE}/${id}`),
         method: 'PUT',
-        data: data,
+        data: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       });
 
       return response;
@@ -94,8 +103,8 @@ class WorkoutTypesService {
 
   async delete(id: number) {
     try {
-      const response = await axiosPrivate<IWorkoutTypeResponse>({
-        url: API_URL.workoutType(`${EnumWorkoutTypesPaths.DELETE}/${id}`),
+      const response = await axiosPrivate<IWorkoutTypeIcons>({
+        url: API_URL.workoutTypeIcons(`${EnumWorkoutTypesPaths.DELETE}/${id}`),
         method: 'DELETE',
       });
 
@@ -110,4 +119,4 @@ class WorkoutTypesService {
   }
 }
 
-export const workoutTypesService = new WorkoutTypesService();
+export const workoutTypeIconsService = new WorkoutTypeIconsService();

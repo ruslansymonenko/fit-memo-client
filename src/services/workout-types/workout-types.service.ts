@@ -17,7 +17,7 @@ interface ICreateWorkoutType {
 
 interface IUpdateWorkoutType {
   name?: string;
-  isFavorite: boolean;
+  isFavorite?: boolean;
   iconId?: number;
 }
 

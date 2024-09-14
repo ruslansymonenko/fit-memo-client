@@ -2,47 +2,37 @@
 
 import React, { FC, useEffect, useState } from 'react';
 import { X } from 'lucide-react';
-import { AppDispatch } from '@/store';
-import { useDispatch } from 'react-redux';
-import { closeModal } from '@/store/slices/addNewElementModalSlice';
+import { AppDispatch, RootState } from '@/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { closeAddNewElementModal } from '@/store/slices/modals/addNewElementModalSlice';
 import Button from '@/components/common/button/Button';
 import { useGetAllWorkoutsTypeIcons } from '@/hooks/workout-types-icons/useGetWorkoutTypesIcons';
 import { IWorkoutTypeIcons } from '@/types/data-types/workout-type-icons.interface';
 import { SERVER_URL_WITHOUT_API_PREFIX } from '@/config/api.config';
-import { toast } from 'react-hot-toast';
-import { workoutTypesService } from '@/services/workout-types/workout-types.service';
-import { getErrorMessage } from '@/utils/getErrorMessage/getErrorMessage';
 
-const AddWorkoutType: FC = () => {
+interface IAddWorkoutTypeProps {
+  onAddWorkoutType: (name: string, selectedIconId: number | null) => void;
+}
+
+const AddWorkoutType: FC<IAddWorkoutTypeProps> = ({ onAddWorkoutType }) => {
   const dispatch: AppDispatch = useDispatch();
   const [selectedIconId, setSelectedIconId] = useState<number | null>(null);
   const { data, isLoading, error } = useGetAllWorkoutsTypeIcons();
   const [name, setName] = useState('');
   const [workoutTypesIcons, setWorkoutTypesIcons] = useState<IWorkoutTypeIcons[] | null>(null);
 
-  const handleCloseModal = () => {
-    dispatch(closeModal());
+  const handleCloseModal = (e: React.FormEvent) => {
+    e.preventDefault();
+    setName('');
+    setSelectedIconId(null);
+    dispatch(closeAddNewElementModal());
   };
 
-  const addNewWorkoutType = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!name || !selectedIconId) {
-      toast.error('Please provide both a name and select an icon.');
-      return;
-    }
-
-    try {
-      await workoutTypesService.create({
-        name,
-        iconId: selectedIconId,
-      });
-
-      toast.success('Workout type created successfully!');
-      handleCloseModal();
-    } catch (error: any) {
-      toast.error(getErrorMessage(error));
-    }
+    onAddWorkoutType(name, selectedIconId);
+    setName('');
+    setSelectedIconId(null);
   };
 
   useEffect(() => {
@@ -111,9 +101,9 @@ const AddWorkoutType: FC = () => {
           <Button
             children={'Submit'}
             addClasses="bg-secondaryLight"
-            onClick={(e) => addNewWorkoutType(e)}
+            onClick={(e) => handleSubmit(e)}
           />
-          <Button children={'Cancel'} onClick={handleCloseModal} />
+          <Button children={'Cancel'} onClick={(e) => handleCloseModal(e)} />
         </div>
       </form>
     </div>

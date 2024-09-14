@@ -6,16 +6,21 @@ import { useGetAllWorkoutsTypes } from '@/hooks/workout-types/useGetWokoutsTypes
 import Loader from '@/components/common/loader/Loader';
 import AddButton from '@/components/common/add-button/AddButton';
 import Modal from '@/components/app/modals/Modal';
-import AddWorkoutType from '@/components/app/modals/add-workout-type/AddWorkoutType';
+import AddWorkoutType from '@/components/app/forms/add-workout-type/AddWorkoutType';
 import { AppDispatch, RootState } from '@/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { openModal } from '@/store/slices/addNewElementModalSlice';
+import {
+  openAddNewElementModal,
+  closeAddNewElementModal,
+} from '@/store/slices/modals/addNewElementModalSlice';
 import { workoutTypesService } from '@/services/workout-types/workout-types.service';
 import toast from 'react-hot-toast';
 import { getErrorMessage } from '@/utils/getErrorMessage/getErrorMessage';
 import DeleteCheck from '@/components/common/modals/delete-check/DeleteCheck';
-import { closeModal } from '@/store/slices/deleteCheckModalSlice';
+import { closeDeleteCheckModal } from '@/store/slices/modals/deleteCheckModalSlice';
 import { IWorkoutTypeResponse } from '@/types/server-response-types/workoutType-response-type';
+import UpdateWorkoutType from '@/components/app/forms/update-workout-type/UpdateWorkoutType';
+import { closeUpdateElementModal } from '@/store/slices/modals/updateElementModalSlice';
 
 const WorkoutTypes: FC = () => {
   const { data, isLoading, error } = useGetAllWorkoutsTypes();
@@ -24,15 +29,19 @@ const WorkoutTypes: FC = () => {
   const isModalAddWorkoutTypeOpen = useSelector(
     (state: RootState) => state.addNewElementModal.isOpen,
   );
+  const isModalUpdateElementOpen = useSelector(
+    (state: RootState) => state.updateElementModal.isOpen,
+  );
   const elementToDelete = useSelector((state: RootState) => state.deleteCheckModal.elementId);
+  const elementToUpdate = useSelector((state: RootState) => state.updateElementModal.elementId);
   const dispatch: AppDispatch = useDispatch();
 
   const handleOpenModal = () => {
-    dispatch(openModal());
+    dispatch(openAddNewElementModal());
   };
 
   const closeDeleteCheck = () => {
-    dispatch(closeModal());
+    dispatch(closeDeleteCheckModal());
   };
 
   const deleteWorkoutType = async () => {
@@ -48,8 +57,61 @@ const WorkoutTypes: FC = () => {
     }
   };
 
+  const addNewWorkoutType = async (name: string, iconId: number | null) => {
+    if (!name || !iconId) {
+      toast.error('Please provide both a name and select an icon.');
+      return;
+    }
+
+    try {
+      const newWorkoutType = await workoutTypesService.create({
+        name,
+        iconId: iconId,
+      });
+
+      dispatch(closeAddNewElementModal());
+      setWorkoutTypes((prevTypes) => [...prevTypes, newWorkoutType.data]);
+      toast.success('Workout type created successfully!');
+    } catch (error: any) {
+      toast.error(getErrorMessage(error));
+    }
+  };
+
+  const updateWorkoutType = async (name: string, iconId: number | null) => {
+    if (!name || !iconId) {
+      toast.error('Please provide both a name and select an icon.');
+      return;
+    }
+
+    const itemId = 2;
+    const data = {
+      name: name,
+      iconId: iconId,
+    };
+
+    try {
+      if (elementToUpdate) {
+        const updatedWorkoutType = await workoutTypesService.update(elementToUpdate, data);
+
+        setWorkoutTypes((prevTypes) => {
+          return prevTypes.map((type) =>
+            type.id === elementToUpdate ? updatedWorkoutType.data : type,
+          );
+        });
+
+        dispatch(closeUpdateElementModal());
+        toast.success('Workout type updated successfully!');
+      } else {
+        toast.error('Wrong item id');
+      }
+    } catch (error: any) {
+      toast.error(getErrorMessage(error));
+    }
+  };
+
   useEffect(() => {
     if (data) {
+      console.log(data);
       setWorkoutTypes(data.data);
     }
   }, [data]);
@@ -63,7 +125,10 @@ const WorkoutTypes: FC = () => {
         <AddButton onClick={handleOpenModal} />
       </section>
       <Modal isVisible={isModalAddWorkoutTypeOpen}>
-        <AddWorkoutType />
+        <AddWorkoutType onAddWorkoutType={addNewWorkoutType} />
+      </Modal>
+      <Modal isVisible={isModalUpdateElementOpen}>
+        <UpdateWorkoutType onUpdateWorkoutType={updateWorkoutType} />
       </Modal>
       <Modal isVisible={isModalDeleteCheckOpen}>
         <DeleteCheck

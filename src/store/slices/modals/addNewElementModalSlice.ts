@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface IAddNewElementModalSlice {
   isOpen: boolean;
@@ -12,15 +12,15 @@ const addNewElementModalSlice = createSlice({
   name: 'addNewElement',
   initialState,
   reducers: {
-    openModal: (state: IAddNewElementModalSlice) => {
+    openAddNewElementModal: (state: IAddNewElementModalSlice) => {
       state.isOpen = true;
     },
-    closeModal: (state: IAddNewElementModalSlice) => {
+    closeAddNewElementModal: (state: IAddNewElementModalSlice) => {
       state.isOpen = false;
     },
   },
 });
 
-export const { openModal, closeModal } = addNewElementModalSlice.actions;
+export const { openAddNewElementModal, closeAddNewElementModal } = addNewElementModalSlice.actions;
 
 export default addNewElementModalSlice.reducer;

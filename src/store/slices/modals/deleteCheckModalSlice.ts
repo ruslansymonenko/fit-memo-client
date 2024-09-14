@@ -14,17 +14,17 @@ const deleteCheckModal = createSlice({
   name: 'deleteCheck',
   initialState,
   reducers: {
-    openModal: (state: IDeleteCheckModalSlice, action: PayloadAction<number>) => {
+    openDeleteCheckModal: (state: IDeleteCheckModalSlice, action: PayloadAction<number>) => {
       state.isOpen = true;
       state.elementId = action.payload;
     },
-    closeModal: (state: IDeleteCheckModalSlice) => {
+    closeDeleteCheckModal: (state: IDeleteCheckModalSlice) => {
       state.isOpen = false;
       state.elementId = null;
     },
   },
 });
 
-export const { openModal, closeModal } = deleteCheckModal.actions;
+export const { openDeleteCheckModal, closeDeleteCheckModal } = deleteCheckModal.actions;
 
 export default deleteCheckModal.reducer;

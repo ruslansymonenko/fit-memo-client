@@ -10,7 +10,7 @@ const WorkoutTypesList: FC<IWorkoutTypesListProps> = ({ workoutTypes }) => {
   return (
     <ul className="grid grid-cols-4 gap-4">
       {workoutTypes.map((type) => (
-        <WorkoutTypesListItem workoutType={type} />
+        <WorkoutTypesListItem workoutType={type} key={type.id} />
       ))}
     </ul>
   );

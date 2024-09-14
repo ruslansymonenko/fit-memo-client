@@ -31,9 +31,9 @@ class WorkoutTypesService {
       });
 
       return response;
-    } catch (error) {
+    } catch (error: any) {
       if (error instanceof Error) {
-        throw error.message;
+        throw error;
       } else {
         throw new Error('An unknown error occurred');
       }
@@ -50,7 +50,7 @@ class WorkoutTypesService {
       return response;
     } catch (error) {
       if (error instanceof Error) {
-        throw error.message;
+        throw error;
       } else {
         throw new Error('An unknown error occurred');
       }
@@ -67,7 +67,7 @@ class WorkoutTypesService {
       return response;
     } catch (error) {
       if (error instanceof Error) {
-        throw error.message;
+        throw error;
       } else {
         throw new Error('An unknown error occurred');
       }
@@ -85,7 +85,7 @@ class WorkoutTypesService {
       return response;
     } catch (error) {
       if (error instanceof Error) {
-        throw error.message;
+        throw error;
       } else {
         throw new Error('An unknown error occurred');
       }
@@ -102,7 +102,7 @@ class WorkoutTypesService {
       return response;
     } catch (error) {
       if (error instanceof Error) {
-        throw error.message;
+        throw error;
       } else {
         throw new Error('An unknown error occurred');
       }

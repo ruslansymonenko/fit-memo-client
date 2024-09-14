@@ -4,13 +4,14 @@ import React, { FC, useEffect, useState } from 'react';
 import { X } from 'lucide-react';
 import { AppDispatch } from '@/store';
 import { useDispatch } from 'react-redux';
-import { closeModal } from '@/store/slices/modalSlice';
+import { closeModal } from '@/store/slices/addNewElementModalSlice';
 import Button from '@/components/common/button/Button';
 import { useGetAllWorkoutsTypeIcons } from '@/hooks/workout-types-icons/useGetWorkoutTypesIcons';
 import { IWorkoutTypeIcons } from '@/types/data-types/workout-type-icons.interface';
 import { SERVER_URL_WITHOUT_API_PREFIX } from '@/config/api.config';
 import { toast } from 'react-hot-toast';
 import { workoutTypesService } from '@/services/workout-types/workout-types.service';
+import { getErrorMessage } from '@/utils/getErrorMessage/getErrorMessage';
 
 const AddWorkoutType: FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -32,8 +33,6 @@ const AddWorkoutType: FC = () => {
     }
 
     try {
-      console.log(selectedIconId);
-
       await workoutTypesService.create({
         name,
         iconId: selectedIconId,
@@ -41,8 +40,8 @@ const AddWorkoutType: FC = () => {
 
       toast.success('Workout type created successfully!');
       handleCloseModal();
-    } catch (error) {
-      toast.error(`Failed to create workout type: ${error}`);
+    } catch (error: any) {
+      toast.error(getErrorMessage(error));
     }
   };
 
@@ -55,7 +54,7 @@ const AddWorkoutType: FC = () => {
   return (
     <div className="w-full max-w-lg bg-white shadow-lg rounded-lg p-8 relative">
       <div className="flex items-center">
-        <h3 className="text-blue-600 text-xl font-bold flex-1">Add New Workout Type</h3>
+        <h3 className="text-primary text-xl font-bold flex-1">Add New Workout Type</h3>
         <button onClick={handleCloseModal}>
           <X className="hover:bg-secondaryLight rounded-md cursor-pointer transition-all" />
         </button>

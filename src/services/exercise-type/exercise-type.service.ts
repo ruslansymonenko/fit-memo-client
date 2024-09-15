@@ -1,8 +1,8 @@
 import { axiosPrivate } from '@/api/api.interceptors';
 import { API_URL } from '@/config/api.config';
-import { IWorkoutTypeResponse } from '@/types/server-response-types/workoutType-response-type';
+import { IExerciseTypeResponse } from '@/types/server-response-types/exercise-type-response';
 
-enum EnumWorkoutTypesPaths {
+enum EnumExerciseTypePaths {
   CREATE = '/create',
   GET_ALL = '/get-all',
   GET_BY_ID = '/by-id',
@@ -10,47 +10,32 @@ enum EnumWorkoutTypesPaths {
   DELETE = '/delete',
 }
 
-interface ICreateWorkoutType {
+interface ICreateExercise {
   name: string;
-  iconId?: number;
+  description?: string;
+  measureId: number;
 }
 
-interface IUpdateWorkoutType {
+interface IUpdateExercise {
   name?: string;
+  description?: string;
   isFavorite?: boolean;
-  iconId?: number;
+  measureId?: number;
 }
 
-class WorkoutTypesService {
-  async create(data: ICreateWorkoutType) {
+class ExerciseTypeService {
+  async create(data: ICreateExercise) {
     try {
-      const response = await axiosPrivate<IWorkoutTypeResponse>({
-        url: API_URL.workoutType(EnumWorkoutTypesPaths.CREATE),
+      const response = await axiosPrivate<IExerciseTypeResponse>({
+        url: API_URL.exerciseType(EnumExerciseTypePaths.CREATE),
         method: 'POST',
         data: data,
       });
 
       return response;
-    } catch (error: any) {
-      if (error instanceof Error) {
-        throw error;
-      } else {
-        throw new Error('An unknown error occurred');
-      }
-    }
-  }
-
-  async getAll() {
-    try {
-      const response = await axiosPrivate<IWorkoutTypeResponse[]>({
-        url: API_URL.workoutType(EnumWorkoutTypesPaths.GET_ALL),
-        method: 'GET',
-      });
-
-      return response;
     } catch (error) {
       if (error instanceof Error) {
-        throw error;
+        throw error.message;
       } else {
         throw new Error('An unknown error occurred');
       }
@@ -59,25 +44,42 @@ class WorkoutTypesService {
 
   async getById(id: number) {
     try {
-      const response = await axiosPrivate<IWorkoutTypeResponse>({
-        url: API_URL.workoutType(`${EnumWorkoutTypesPaths.GET_BY_ID}/${id}`),
+      const response = await axiosPrivate<IExerciseTypeResponse>({
+        url: API_URL.exerciseType(`${EnumExerciseTypePaths.GET_BY_ID}/${id}`),
         method: 'GET',
       });
 
       return response;
     } catch (error) {
       if (error instanceof Error) {
-        throw error;
+        throw error.message;
       } else {
         throw new Error('An unknown error occurred');
       }
     }
   }
 
-  async update(id: number, data: IUpdateWorkoutType) {
+  async getAll() {
     try {
-      const response = await axiosPrivate<IWorkoutTypeResponse>({
-        url: API_URL.workoutType(`${EnumWorkoutTypesPaths.UPDATE}/${id}`),
+      const response = await axiosPrivate<IExerciseTypeResponse[]>({
+        url: API_URL.exerciseType(`${EnumExerciseTypePaths.GET_ALL}`),
+        method: 'GET',
+      });
+
+      return response;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw error.message;
+      } else {
+        throw new Error('An unknown error occurred');
+      }
+    }
+  }
+
+  async update(id: number, data: IUpdateExercise) {
+    try {
+      const response = await axiosPrivate<IExerciseTypeResponse>({
+        url: API_URL.exerciseType(`${EnumExerciseTypePaths.UPDATE}/${id}`),
         method: 'PUT',
         data: data,
       });
@@ -85,7 +87,7 @@ class WorkoutTypesService {
       return response;
     } catch (error) {
       if (error instanceof Error) {
-        throw error;
+        throw error.message;
       } else {
         throw new Error('An unknown error occurred');
       }
@@ -94,15 +96,15 @@ class WorkoutTypesService {
 
   async delete(id: number) {
     try {
-      const response = await axiosPrivate<IWorkoutTypeResponse>({
-        url: API_URL.workoutType(`${EnumWorkoutTypesPaths.DELETE}/${id}`),
+      const response = await axiosPrivate<IExerciseTypeResponse>({
+        url: API_URL.exerciseType(`${EnumExerciseTypePaths.DELETE}/${id}`),
         method: 'DELETE',
       });
 
       return response;
     } catch (error) {
       if (error instanceof Error) {
-        throw error;
+        throw error.message;
       } else {
         throw new Error('An unknown error occurred');
       }
@@ -110,4 +112,4 @@ class WorkoutTypesService {
   }
 }
 
-export const workoutTypesService = new WorkoutTypesService();
+export const exerciseTypeService = new ExerciseTypeService();

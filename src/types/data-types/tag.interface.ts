@@ -1,3 +1,5 @@
+export type TypeToggleTags = 'add' | 'remove';
+
 export interface ITag {
   id: string;
   createdAt: string;

@@ -1,8 +1,8 @@
 import { axiosPrivate } from '@/api/api.interceptors';
 import { API_URL } from '@/config/api.config';
-import { IWorkoutTypeResponse } from '@/types/server-response-types/workoutType-response-type';
+import { EnumMeasuresTypes, IMeasure } from '@/types/data-types/measure.interface';
 
-enum EnumWorkoutTypesPaths {
+enum EnumRepeatPaths {
   CREATE = '/create',
   GET_ALL = '/get-all',
   GET_BY_ID = '/by-id',
@@ -10,30 +10,27 @@ enum EnumWorkoutTypesPaths {
   DELETE = '/delete',
 }
 
-interface ICreateWorkoutType {
-  name: string;
-  iconId?: number;
+interface ICreateMeasure {
+  type: EnumMeasuresTypes;
 }
 
-interface IUpdateWorkoutType {
-  name?: string;
-  isFavorite?: boolean;
-  iconId?: number;
+interface IUpdateMeasure {
+  type: EnumMeasuresTypes;
 }
 
-class WorkoutTypesService {
-  async create(data: ICreateWorkoutType) {
+class MeasureService {
+  async create(data: ICreateMeasure) {
     try {
-      const response = await axiosPrivate<IWorkoutTypeResponse>({
-        url: API_URL.workoutType(EnumWorkoutTypesPaths.CREATE),
+      const response = await axiosPrivate<IMeasure>({
+        url: API_URL.measure(EnumRepeatPaths.CREATE),
         method: 'POST',
         data: data,
       });
 
       return response;
-    } catch (error: any) {
+    } catch (error) {
       if (error instanceof Error) {
-        throw error;
+        throw error.message;
       } else {
         throw new Error('An unknown error occurred');
       }
@@ -42,15 +39,15 @@ class WorkoutTypesService {
 
   async getAll() {
     try {
-      const response = await axiosPrivate<IWorkoutTypeResponse[]>({
-        url: API_URL.workoutType(EnumWorkoutTypesPaths.GET_ALL),
+      const response = await axiosPrivate<IMeasure[]>({
+        url: API_URL.measure(`${EnumRepeatPaths.GET_ALL}`),
         method: 'GET',
       });
 
       return response;
     } catch (error) {
       if (error instanceof Error) {
-        throw error;
+        throw error.message;
       } else {
         throw new Error('An unknown error occurred');
       }
@@ -59,25 +56,25 @@ class WorkoutTypesService {
 
   async getById(id: number) {
     try {
-      const response = await axiosPrivate<IWorkoutTypeResponse>({
-        url: API_URL.workoutType(`${EnumWorkoutTypesPaths.GET_BY_ID}/${id}`),
+      const response = await axiosPrivate<IMeasure>({
+        url: API_URL.measure(`${EnumRepeatPaths.GET_BY_ID}/${id}`),
         method: 'GET',
       });
 
       return response;
     } catch (error) {
       if (error instanceof Error) {
-        throw error;
+        throw error.message;
       } else {
         throw new Error('An unknown error occurred');
       }
     }
   }
 
-  async update(id: number, data: IUpdateWorkoutType) {
+  async update(id: number, data: IUpdateMeasure) {
     try {
-      const response = await axiosPrivate<IWorkoutTypeResponse>({
-        url: API_URL.workoutType(`${EnumWorkoutTypesPaths.UPDATE}/${id}`),
+      const response = await axiosPrivate<IMeasure>({
+        url: API_URL.measure(`${EnumRepeatPaths.UPDATE}/${id}`),
         method: 'PUT',
         data: data,
       });
@@ -85,7 +82,7 @@ class WorkoutTypesService {
       return response;
     } catch (error) {
       if (error instanceof Error) {
-        throw error;
+        throw error.message;
       } else {
         throw new Error('An unknown error occurred');
       }
@@ -94,15 +91,15 @@ class WorkoutTypesService {
 
   async delete(id: number) {
     try {
-      const response = await axiosPrivate<IWorkoutTypeResponse>({
-        url: API_URL.workoutType(`${EnumWorkoutTypesPaths.DELETE}/${id}`),
+      const response = await axiosPrivate<IMeasure>({
+        url: API_URL.measure(`${EnumRepeatPaths.DELETE}/${id}`),
         method: 'DELETE',
       });
 
       return response;
     } catch (error) {
       if (error instanceof Error) {
-        throw error;
+        throw error.message;
       } else {
         throw new Error('An unknown error occurred');
       }
@@ -110,4 +107,4 @@ class WorkoutTypesService {
   }
 }
 
-export const workoutTypesService = new WorkoutTypesService();
+export const measureService = new MeasureService();

@@ -83,7 +83,6 @@ const WorkoutTypes: FC = () => {
       return;
     }
 
-    const itemId = 2;
     const data = {
       name: name,
       iconId: iconId,
@@ -111,7 +110,6 @@ const WorkoutTypes: FC = () => {
 
   useEffect(() => {
     if (data) {
-      console.log(data);
       setWorkoutTypes(data.data);
     }
   }, [data]);

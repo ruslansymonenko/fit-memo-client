@@ -1,8 +1,8 @@
 import { axiosPrivate } from '@/api/api.interceptors';
 import { API_URL } from '@/config/api.config';
-import { IExerciseTypeResponse } from '@/types/server-response-types/exercise-type-response';
+import { EnumMeasuresTypes, IMeasure } from '@/types/data-types/measure.interface';
 
-enum EnumExerciseTypePaths {
+enum EnumRepeatPaths {
   CREATE = '/create',
   GET_ALL = '/get-all',
   GET_BY_ID = '/by-id',
@@ -10,24 +10,19 @@ enum EnumExerciseTypePaths {
   DELETE = '/delete',
 }
 
-interface ICreateExercise {
-  name: string;
-  description?: string;
-  measureId: number;
+interface ICreateMeasure {
+  type: EnumMeasuresTypes;
 }
 
-interface IUpdateExercise {
-  name?: string;
-  description?: string;
-  isFavorite?: boolean;
-  measureId?: number;
+interface IUpdateMeasure {
+  type: EnumMeasuresTypes;
 }
 
-class ExerciseTypeService {
-  async create(data: ICreateExercise) {
+class MeasureService {
+  async create(data: ICreateMeasure) {
     try {
-      const response = await axiosPrivate<IExerciseTypeResponse>({
-        url: API_URL.exerciseType(EnumExerciseTypePaths.CREATE),
+      const response = await axiosPrivate<IMeasure>({
+        url: API_URL.measure(EnumRepeatPaths.CREATE),
         method: 'POST',
         data: data,
       });
@@ -42,27 +37,10 @@ class ExerciseTypeService {
     }
   }
 
-  async getById(id: number) {
-    try {
-      const response = await axiosPrivate<IExerciseTypeResponse>({
-        url: API_URL.exerciseType(`${EnumExerciseTypePaths.GET_BY_ID}/${id}`),
-        method: 'GET',
-      });
-
-      return response;
-    } catch (error) {
-      if (error instanceof Error) {
-        throw error.message;
-      } else {
-        throw new Error('An unknown error occurred');
-      }
-    }
-  }
-
   async getAll() {
     try {
-      const response = await axiosPrivate<IExerciseTypeResponse[]>({
-        url: API_URL.exerciseType(`${EnumExerciseTypePaths.GET_ALL}`),
+      const response = await axiosPrivate<IMeasure[]>({
+        url: API_URL.measure(`${EnumRepeatPaths.GET_ALL}`),
         method: 'GET',
       });
 
@@ -76,10 +54,27 @@ class ExerciseTypeService {
     }
   }
 
-  async update(id: number, data: IUpdateExercise) {
+  async getById(id: number) {
     try {
-      const response = await axiosPrivate<IExerciseTypeResponse>({
-        url: API_URL.exerciseType(`${EnumExerciseTypePaths.UPDATE}/${id}`),
+      const response = await axiosPrivate<IMeasure>({
+        url: API_URL.measure(`${EnumRepeatPaths.GET_BY_ID}/${id}`),
+        method: 'GET',
+      });
+
+      return response;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw error.message;
+      } else {
+        throw new Error('An unknown error occurred');
+      }
+    }
+  }
+
+  async update(id: number, data: IUpdateMeasure) {
+    try {
+      const response = await axiosPrivate<IMeasure>({
+        url: API_URL.measure(`${EnumRepeatPaths.UPDATE}/${id}`),
         method: 'PUT',
         data: data,
       });
@@ -96,8 +91,8 @@ class ExerciseTypeService {
 
   async delete(id: number) {
     try {
-      const response = await axiosPrivate<IExerciseTypeResponse>({
-        url: API_URL.exerciseType(`${EnumExerciseTypePaths.DELETE}/${id}`),
+      const response = await axiosPrivate<IMeasure>({
+        url: API_URL.measure(`${EnumRepeatPaths.DELETE}/${id}`),
         method: 'DELETE',
       });
 
@@ -112,4 +107,4 @@ class ExerciseTypeService {
   }
 }
 
-export const exerciseTypeService = new ExerciseTypeService();
+export const measureService = new MeasureService();

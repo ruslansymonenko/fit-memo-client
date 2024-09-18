@@ -16,7 +16,7 @@ const Main: FC = () => {
       const workouts = data.data;
 
       if (workouts.length > 2) {
-        setWorkoutsData(workouts.slice(0, 2));
+        setWorkoutsData(workouts.slice(0, 3));
       } else {
         setWorkoutsData(workouts);
       }

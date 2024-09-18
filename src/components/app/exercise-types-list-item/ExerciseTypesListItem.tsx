@@ -7,7 +7,6 @@ import { AppDispatch } from '@/store';
 import { useDispatch } from 'react-redux';
 import cn from 'clsx';
 import { exerciseTypeService } from '@/services/exercise-type/exercise-type.service';
-import { is } from 'immutable';
 import toast from 'react-hot-toast';
 import { getErrorMessage } from '@/utils/getErrorMessage/getErrorMessage';
 

@@ -17,6 +17,12 @@ const Dropdown: FC<IDropDownProps> = ({ options, onSelect, placeholder = 'Select
     setIsOpen(!isOpen);
   };
 
+  const handleSelectNoSelected = (option: string) => {
+    setSelectedOption(option);
+    setSelectedOption(null);
+    setIsOpen(false);
+  };
+
   const handleSelect = (option: string) => {
     setSelectedOption(option);
     onSelect(option);
@@ -24,10 +30,10 @@ const Dropdown: FC<IDropDownProps> = ({ options, onSelect, placeholder = 'Select
   };
 
   return (
-    <div className="relative font-[sans-serif] w-max mx-auto">
+    <div className="relative font-[sans-serif] w-full mx-auto">
       <button
         type="button"
-        className="px-5 py-2.5 border border-gray-300 text-gray-800 bg-gray-100 text-sm rounded-md outline-none hover:bg-gray-50 flex items-center"
+        className="px-5 py-2.5 border border-gray-300 text-gray-800 bg-gray-100 text-sm rounded-md outline-none hover:bg-secondaryLight w-full flex items-center justify-center"
         onClick={handleToggle}
       >
         <span className="mr-2">{selectedOption || placeholder}</span>
@@ -36,15 +42,22 @@ const Dropdown: FC<IDropDownProps> = ({ options, onSelect, placeholder = 'Select
 
       <ul
         id="dropdownMenu"
-        className={`absolute ${isOpen ? 'block' : 'hidden'} shadow-[0_8px_19px_-7px_rgba(6,81,237,0.2)] bg-gray-50 py-2 z-[1000] min-w-full w-max divide-y max-h-96 overflow-auto grid grid-cols-2 grid-rows-auto`}
+        className={`absolute ${isOpen ? 'block' : 'hidden'} shadow-[0_8px_19px_-7px_rgba(6,81,237,0.2)] bg-gray-100 z-[1000] min-w-full w-max divide-y max-h-96 overflow-auto grid grid-cols-2 grid-rows-auto px-2 py-2 gap-4`}
       >
+        <li
+          className="py-2 px-5 hover:bg-secondaryLight text-gray-800 text-sm cursor-pointer flex items-center justify-center rounded-md"
+          key={'No index'}
+          onClick={() => handleSelectNoSelected('Not Selected')}
+        >
+          <span className="font-bold">Not selected</span>
+        </li>
         {options.map((option, index) => (
           <li
-            className="py-2 px-5 hover:bg-gray-100 text-gray-800 text-sm cursor-pointer"
+            className="py-2 px-5 hover:bg-secondaryLight text-gray-800 text-sm cursor-pointer flex items-center justify-center rounded-md"
             key={index}
             onClick={() => handleSelect(option)}
           >
-            {option}
+            <span>{option}</span>
           </li>
         ))}
       </ul>

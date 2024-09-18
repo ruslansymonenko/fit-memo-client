@@ -5,6 +5,10 @@ import { useGetWorkoutById } from '@/hooks/workout/useGetWorkouts';
 import { IWorkoutResponse } from '@/types/server-response-types/workout-response.interface';
 import WorkoutHeader from '@/components/app/workout-header/WorkoutHeader';
 import WorkoutData from '@/components/app/workout-data/WorkoutData';
+import AddButton from '@/components/common/add-button/AddButton';
+import { openAddNewElementModal } from '@/store/slices/modals/addNewElementModalSlice';
+import { AppDispatch } from '@/store';
+import { useDispatch } from 'react-redux';
 
 interface IWorkoutProps {
   id: number;

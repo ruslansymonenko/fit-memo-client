@@ -6,52 +6,58 @@ import { AppDispatch } from '@/store';
 import { useDispatch } from 'react-redux';
 import { closeAddNewElementModal } from '@/store/slices/modals/addNewElementModalSlice';
 import Button from '@/components/common/button/Button';
-import { useGetAllMeasures } from '@/hooks/measures/useGetMeasures';
-import { IMeasure } from '@/types/data-types/measure.interface';
 import Dropdown from '@/components/common/dropdown/Dropdown';
+import { useGetAllWorkoutsTypes } from '@/hooks/workout-types/useGetWokoutsTypes';
+import { IWorkoutTypeResponse } from '@/types/server-response-types/workoutType-response-type';
 
-interface IAddExerciseTypeProps {
-  onAddExerciseType: (name: string, measureId: number | null) => void;
+interface IAddWorkoutProps {
+  onAddWorkout: (name: string, workoutTypeId: number | null) => void;
 }
 
-const AddExerciseType: FC<IAddExerciseTypeProps> = ({ onAddExerciseType }) => {
+const AddWorkout: FC<IAddWorkoutProps> = ({ onAddWorkout }) => {
   const dispatch: AppDispatch = useDispatch();
-  const [measureId, setMeasureId] = useState<number | null>(null);
-  const [measures, setMeasures] = useState<IMeasure[]>([]);
-  const { data, isLoading, error } = useGetAllMeasures();
+  const [workoutTypeId, setWorkoutTypeId] = useState<number | null>(null);
+  const [workoutTypes, setWorkoutTypes] = useState<IWorkoutTypeResponse[]>([]);
+  const { data, isLoading, error } = useGetAllWorkoutsTypes();
   const [name, setName] = useState('');
 
   const handleCloseModal = (e: React.FormEvent) => {
     e.preventDefault();
     setName('');
-    setMeasureId(null);
+    setWorkoutTypeId(null);
     dispatch(closeAddNewElementModal());
   };
 
-  const handleSetChosenMeasure = (name: string) => {
-    const chosenMeasure = measures.filter((item) => item.type === name);
-    if (chosenMeasure[0]) {
-      setMeasureId(chosenMeasure[0].id);
+  useEffect(() => {
+    if (data) {
+      setWorkoutTypes(data.data);
+    }
+  }, [data]);
+
+  const handleSetChosenWorkoutType = (name: string) => {
+    const chosenWorkoutType = workoutTypes.filter((item) => item.name === name);
+    if (chosenWorkoutType[0]) {
+      setWorkoutTypeId(chosenWorkoutType[0].id);
     }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    onAddExerciseType(name, measureId);
+    onAddWorkout(name, workoutTypeId);
     handleCloseModal(e);
   };
 
   useEffect(() => {
     if (data) {
-      setMeasures(data.data);
+      setWorkoutTypes(data.data);
     }
   }, [data]);
 
   return (
     <div className="w-full max-w-lg bg-white shadow-lg rounded-lg p-8 relative">
       <div className="flex items-center">
-        <h3 className="text-primary text-xl font-bold flex-1">Add New Exercise Type</h3>
+        <h3 className="text-primary text-xl font-bold flex-1">Add New Workout</h3>
         <button onClick={handleCloseModal}>
           <X className="hover:bg-secondaryLight rounded-md cursor-pointer transition-all" />
         </button>
@@ -59,7 +65,7 @@ const AddExerciseType: FC<IAddExerciseTypeProps> = ({ onAddExerciseType }) => {
 
       <form className="space-y-4 mt-8">
         <div>
-          <label className="text-gray-800 text-sm mb-2 block">Exercise type name</label>
+          <label className="text-gray-800 text-sm mb-2 block">Workout name</label>
           <input
             type="text"
             placeholder="Enter type name"
@@ -68,7 +74,10 @@ const AddExerciseType: FC<IAddExerciseTypeProps> = ({ onAddExerciseType }) => {
           />
         </div>
         <div>
-          <Dropdown options={measures.map((obj) => obj.type)} onSelect={handleSetChosenMeasure} />
+          <Dropdown
+            options={workoutTypes.map((obj) => obj.name)}
+            onSelect={handleSetChosenWorkoutType}
+          />
         </div>
 
         <div className="flex justify-end gap-4 !mt-8">
@@ -84,4 +93,4 @@ const AddExerciseType: FC<IAddExerciseTypeProps> = ({ onAddExerciseType }) => {
   );
 };
 
-export default AddExerciseType;
+export default AddWorkout;

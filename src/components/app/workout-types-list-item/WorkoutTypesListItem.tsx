@@ -8,11 +8,11 @@ import { AppDispatch } from '@/store';
 import { openDeleteCheckModal } from '@/store/slices/modals/deleteCheckModalSlice';
 import { openUpdateElementModal } from '@/store/slices/modals/updateElementModalSlice';
 
-interface IWorkoutTypesListItemProps {
+interface IProps {
   workoutType: IWorkoutTypeResponse;
 }
 
-const WorkoutTypesListItem: FC<IWorkoutTypesListItemProps> = ({ workoutType }) => {
+const WorkoutTypesListItem: FC<IProps> = ({ workoutType }) => {
   const dispatch: AppDispatch = useDispatch();
 
   const openUpdateTypeModal = () => {

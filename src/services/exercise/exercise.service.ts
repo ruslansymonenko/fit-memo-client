@@ -10,11 +10,12 @@ enum EnumExercisePaths {
   DELETE = '/delete',
 }
 
-interface ICreateExercise {
-  exerciseId: number;
+export interface ICreateExercise {
+  exerciseTypeId: number;
+  workoutId: number;
 }
 
-interface IUpdateExercise {
+export interface IUpdateExercise {
   exerciseId: number;
 }
 
@@ -29,11 +30,7 @@ class ExerciseService {
 
       return response;
     } catch (error) {
-      if (error instanceof Error) {
-        throw error.message;
-      } else {
-        throw new Error('An unknown error occurred');
-      }
+      throw error;
     }
   }
 
@@ -46,11 +43,7 @@ class ExerciseService {
 
       return response;
     } catch (error) {
-      if (error instanceof Error) {
-        throw error.message;
-      } else {
-        throw new Error('An unknown error occurred');
-      }
+      throw error;
     }
   }
 
@@ -63,11 +56,7 @@ class ExerciseService {
 
       return response;
     } catch (error) {
-      if (error instanceof Error) {
-        throw error.message;
-      } else {
-        throw new Error('An unknown error occurred');
-      }
+      throw error;
     }
   }
 
@@ -81,11 +70,7 @@ class ExerciseService {
 
       return response;
     } catch (error) {
-      if (error instanceof Error) {
-        throw error.message;
-      } else {
-        throw new Error('An unknown error occurred');
-      }
+      throw error;
     }
   }
 
@@ -98,11 +83,7 @@ class ExerciseService {
 
       return response;
     } catch (error) {
-      if (error instanceof Error) {
-        throw error.message;
-      } else {
-        throw new Error('An unknown error occurred');
-      }
+      throw error;
     }
   }
 }

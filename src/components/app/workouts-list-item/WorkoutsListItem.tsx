@@ -20,11 +20,11 @@ import { useDispatch } from 'react-redux';
 import { openUpdateElementModal } from '@/store/slices/modals/updateElementModalSlice';
 import { openDeleteCheckModal } from '@/store/slices/modals/deleteCheckModalSlice';
 
-interface IWorkoutsListItemProps {
+interface IProps {
   data: IWorkoutResponse;
 }
 
-const WorkoutsListItem: FC<IWorkoutsListItemProps> = ({ data }) => {
+const WorkoutsListItem: FC<IProps> = ({ data }) => {
   const [tagsShortList, setTagsShortList] = useState<ITag[]>([]);
   const [isFavorite, setIsFavorite] = useState<boolean>(data.isFavorite ? data.isFavorite : false);
   const dispatch: AppDispatch = useDispatch();

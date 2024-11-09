@@ -12,11 +12,11 @@ import { IWorkoutTypeResponse } from '@/types/server-response-types/workoutType-
 import { useGetAllWorkoutsTypes } from '@/hooks/workout-types/useGetWokoutsTypes';
 import { IUpdateWorkout } from '@/services/workout/workout.service';
 
-interface IUpdateWorkoutProps {
+interface IProps {
   onUpdateWorkout: (updatedData: IUpdateWorkout) => void;
 }
 
-const UpdateWorkout: FC<IUpdateWorkoutProps> = ({ onUpdateWorkout }) => {
+const UpdateWorkout: FC<IProps> = ({ onUpdateWorkout }) => {
   const dispatch: AppDispatch = useDispatch();
   const { data, isLoading, error } = useGetAllWorkoutsTypes();
   const [name, setName] = useState('');

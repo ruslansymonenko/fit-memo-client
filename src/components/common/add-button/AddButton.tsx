@@ -3,12 +3,12 @@ import cn from 'clsx';
 import styles from './AddButton.module.scss';
 import { Plus } from 'lucide-react';
 
-interface IAddButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   addClasses?: string;
   action?: () => void;
 }
 
-const IAddButtonProps: FC<IAddButtonProps> = ({ addClasses, action, ...props }) => {
+const IAddButtonProps: FC<IProps> = ({ addClasses, action, ...props }) => {
   return (
     <button className={cn(styles.button, addClasses)} {...props}>
       <div>

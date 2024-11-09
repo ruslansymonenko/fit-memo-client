@@ -15,11 +15,11 @@ import { useDispatch } from 'react-redux';
 import { openUpdateElementModal } from '@/store/slices/modals/updateElementModalSlice';
 import { openDeleteCheckModal } from '@/store/slices/modals/deleteCheckModalSlice';
 
-interface IWorkoutHeaderProps {
+interface IProps {
   workout: IWorkoutResponse | null;
 }
 
-const WorkoutHeader: FC<IWorkoutHeaderProps> = ({ workout }) => {
+const WorkoutHeader: FC<IProps> = ({ workout }) => {
   const dispatch: AppDispatch = useDispatch();
 
   const openUpdateWorkoutModal = () => {
@@ -95,6 +95,7 @@ const WorkoutHeader: FC<IWorkoutHeaderProps> = ({ workout }) => {
                 {workout.tags
                   ? workout.tags.map((tag) => (
                       <div
+                        key={tag.id}
                         className="py-1 px-2 rounded-lg mr-2"
                         style={{ backgroundColor: tag.color }}
                       >

@@ -10,11 +10,11 @@ import { useGetAllMeasures } from '@/hooks/measures/useGetMeasures';
 import { IMeasure } from '@/types/data-types/measure.interface';
 import Dropdown from '@/components/common/dropdown/Dropdown';
 
-interface IAddExerciseTypeProps {
+interface IProps {
   onAddExerciseType: (name: string, measureId: number | null) => void;
 }
 
-const AddExerciseType: FC<IAddExerciseTypeProps> = ({ onAddExerciseType }) => {
+const AddExerciseType: FC<IProps> = ({ onAddExerciseType }) => {
   const dispatch: AppDispatch = useDispatch();
   const [measureId, setMeasureId] = useState<number | null>(null);
   const [measures, setMeasures] = useState<IMeasure[]>([]);

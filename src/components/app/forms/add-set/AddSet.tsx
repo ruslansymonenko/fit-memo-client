@@ -10,11 +10,11 @@ import Dropdown from '@/components/common/dropdown/Dropdown';
 import { useGetAllWorkoutsTypes } from '@/hooks/workout-types/useGetWokoutsTypes';
 import { IWorkoutTypeResponse } from '@/types/server-response-types/workoutType-response-type';
 
-interface IAddSetProps {
+interface IProps {
   onAddSet: (exerciseId: number | null) => void;
 }
 
-const AddSet: FC<IAddSetProps> = ({ onAddSet }) => {
+const AddSet: FC<IProps> = ({ onAddSet }) => {
   const dispatch: AppDispatch = useDispatch();
   const [exerciseId, setExerciseId] = useState<number | null>(null);
   const [workoutTypes, setWorkoutTypes] = useState<IWorkoutTypeResponse[]>([]);

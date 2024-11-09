@@ -1,15 +1,21 @@
 'use client';
 
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { ChevronsDown } from 'lucide-react';
 
-interface IDropDownProps {
+interface IProps {
   options: string[];
   placeholder?: string;
   onSelect: (option: string) => void;
+  selected?: string | null;
 }
 
-const Dropdown: FC<IDropDownProps> = ({ options, onSelect, placeholder = 'Select an option' }) => {
+const Dropdown: FC<IProps> = ({
+  options,
+  onSelect,
+  placeholder = 'Select an option',
+  selected,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
@@ -28,6 +34,10 @@ const Dropdown: FC<IDropDownProps> = ({ options, onSelect, placeholder = 'Select
     onSelect(option);
     setIsOpen(false);
   };
+
+  useEffect(() => {
+    setSelectedOption(selected || null);
+  }, [selected]);
 
   return (
     <div className="relative font-[sans-serif] w-full mx-auto">

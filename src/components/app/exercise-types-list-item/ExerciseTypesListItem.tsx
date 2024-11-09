@@ -10,12 +10,12 @@ import { exerciseTypeService } from '@/services/exercise-type/exercise-type.serv
 import toast from 'react-hot-toast';
 import { getErrorMessage } from '@/utils/getErrorMessage/getErrorMessage';
 
-interface IExerciseTypesListItemProps {
+interface IProps {
   exerciseType: IExerciseTypeResponse;
   indexNumber: number;
 }
 
-const ExerciseTypesListItem: FC<IExerciseTypesListItemProps> = ({ exerciseType, indexNumber }) => {
+const ExerciseTypesListItem: FC<IProps> = ({ exerciseType, indexNumber }) => {
   const [isFavorite, setIsFavorite] = useState<boolean>(
     exerciseType.isFavorite ? exerciseType.isFavorite : false,
   );

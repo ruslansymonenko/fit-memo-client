@@ -22,13 +22,15 @@ import Modal from '@/components/app/modals/Modal';
 import UpdateWorkout from '@/components/app/forms/update-workout/UpdateWorkout';
 import DeleteCheck from '@/components/common/modals/delete-check/DeleteCheck';
 import { setService } from '@/services/set/set.service';
-import { ISetResponse } from '@/types/server-response-types/set-response.interface';
 import AddSet from '@/components/app/forms/add-set/AddSet';
 import Button from '@/components/common/button/Button';
 import AddExercise from '@/components/app/forms/add-exercise/AddExercise';
 import AddRepeat from '@/components/app/forms/add-repeat/AddRepeat';
+import { exerciseService } from '@/services/exercise/exercise.service';
+import { useQueryClient } from '@tanstack/react-query';
+import Loader from '@/components/common/loader/Loader';
 
-interface IWorkoutProps {
+interface IProps {
   id: number;
 }
 
@@ -39,13 +41,12 @@ enum ModalContent {
   None = 'none',
 }
 
-const Workout: FC<IWorkoutProps> = ({ id }) => {
+const Workout: FC<IProps> = ({ id }) => {
   const dispatch: AppDispatch = useDispatch();
   const router = useRouter();
 
-  const { data, isLoading, error } = useGetWorkoutById(id);
+  const { data, isLoading, error, refetch } = useGetWorkoutById(id);
   const [workoutData, setWorkoutData] = useState<IWorkoutResponse | null>(null);
-  const [setsData, setSetsData] = useState<ISetResponse[]>([]);
   const [modalContent, setModalContent] = useState<ModalContent>(ModalContent.None);
 
   const isModalAddSet = useSelector((state: RootState) => state.addNewElementModal.isOpen);
@@ -58,6 +59,7 @@ const Workout: FC<IWorkoutProps> = ({ id }) => {
 
   const isModalDeleteCheckOpen = useSelector((state: RootState) => state.deleteCheckModal.isOpen);
   const elementToDelete = useSelector((state: RootState) => state.deleteCheckModal.elementId);
+  const queryClient = useQueryClient();
 
   const updateWorkout = async (updatedData: IUpdateWorkout) => {
     try {
@@ -128,13 +130,33 @@ const Workout: FC<IWorkoutProps> = ({ id }) => {
     }
 
     try {
-      const newSet = await setService.create({
+      await setService.create({
         exerciseId,
       });
 
       dispatch(closeAddNewElementModal());
-      setSetsData((prevSets) => [...prevSets, newSet.data]);
+      await refetch();
       toast.success('Workout type created successfully!');
+    } catch (error: any) {
+      toast.error(getErrorMessage(error));
+    }
+  };
+
+  const addNewExercise = async (exerciseTypeId: number, workoutId?: number) => {
+    if (!exerciseTypeId && !workoutId) {
+      toast.error('Please provide all data');
+      return;
+    }
+
+    try {
+      await exerciseService.create({
+        exerciseTypeId: exerciseTypeId,
+        workoutId: id,
+      });
+
+      dispatch(closeAddNewElementModal());
+      await refetch();
+      toast.success('Element created successfully!');
     } catch (error: any) {
       toast.error(getErrorMessage(error));
     }
@@ -143,7 +165,7 @@ const Workout: FC<IWorkoutProps> = ({ id }) => {
   const renderModalContent = () => {
     switch (modalContent) {
       case ModalContent.Exercise:
-        return <AddExercise />;
+        return <AddExercise onAddElement={addNewExercise} />;
       case ModalContent.Set:
         return <AddSet onAddSet={addNewSet} />;
       case ModalContent.Repeat:
@@ -163,15 +185,15 @@ const Workout: FC<IWorkoutProps> = ({ id }) => {
     <>
       <section className="py-4 px-8">
         <WorkoutHeader workout={workoutData} />
-        <div className="flex gap-8 h-12 mt-6">
+        <div className="flex items-center gap-8 h-12 mt-6">
           <Button
-            addClasses={'bg-primary'}
+            addClasses={'bg-primaryLight'}
             onClick={() => handleOpenAddElementModal(ModalContent.Exercise)}
           >
             Add Exercise
           </Button>
           <Button
-            addClasses={'bg-secondary'}
+            addClasses={'bg-primaryLight'}
             onClick={() => handleOpenAddElementModal(ModalContent.Set)}
           >
             Add Set
@@ -183,12 +205,9 @@ const Workout: FC<IWorkoutProps> = ({ id }) => {
             Add Repeat
           </Button>
         </div>
-        <WorkoutData workout={workoutData} />
+        {isLoading ? <Loader /> : <WorkoutData workout={workoutData} />}
       </section>
-      <Modal isVisible={isModalAddSet}>
-        {renderModalContent()}
-        {/*<AddSet onAddSet={addNewSet} />*/}
-      </Modal>
+      <Modal isVisible={isModalAddSet}>{renderModalContent()}</Modal>
       <Modal isVisible={isModalUpdateElementOpen}>
         <UpdateWorkout onUpdateWorkout={updateWorkout} />
       </Modal>

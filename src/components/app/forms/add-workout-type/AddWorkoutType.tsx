@@ -2,19 +2,19 @@
 
 import React, { FC, useEffect, useState } from 'react';
 import { X } from 'lucide-react';
-import { AppDispatch, RootState } from '@/store';
-import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch } from '@/store';
+import { useDispatch } from 'react-redux';
 import { closeAddNewElementModal } from '@/store/slices/modals/addNewElementModalSlice';
 import Button from '@/components/common/button/Button';
 import { useGetAllWorkoutsTypeIcons } from '@/hooks/workout-types-icons/useGetWorkoutTypesIcons';
 import { IWorkoutTypeIcons } from '@/types/data-types/workout-type-icons.interface';
 import { SERVER_URL_WITHOUT_API_PREFIX } from '@/config/api.config';
 
-interface IAddWorkoutTypeProps {
+interface IProps {
   onAddWorkoutType: (name: string, selectedIconId: number | null) => void;
 }
 
-const AddWorkoutType: FC<IAddWorkoutTypeProps> = ({ onAddWorkoutType }) => {
+const AddWorkoutType: FC<IProps> = ({ onAddWorkoutType }) => {
   const dispatch: AppDispatch = useDispatch();
   const [selectedIconId, setSelectedIconId] = useState<number | null>(null);
   const { data, isLoading, error } = useGetAllWorkoutsTypeIcons();

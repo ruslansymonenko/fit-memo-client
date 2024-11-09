@@ -3,12 +3,12 @@ import { IRepeat } from '@/types/data-types/repeat.interface';
 import { IMeasure } from '@/types/data-types/measure.interface';
 import { getShortMeasureName } from '@/utils/getShortMeasureValue/getShortMeasureValue';
 
-interface IRepeatsListItemProps {
+interface IProps {
   repeat: IRepeat;
   measure: IMeasure;
 }
 
-const RepeatsListItem: FC<IRepeatsListItemProps> = ({ repeat, measure }) => {
+const RepeatsListItem: FC<IProps> = ({ repeat, measure }) => {
   return (
     <div className="px-4 flex flex-col items-center mr-4">
       <div>

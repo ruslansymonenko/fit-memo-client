@@ -1,8 +1,13 @@
 import { FC } from 'react';
+import cn from 'clsx';
 
-const Loader: FC = () => {
+interface IProps {
+  className?: string;
+}
+
+const Loader: FC<IProps> = ({ className }) => {
   return (
-    <div>
+    <div className={cn('', className)}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="w-10 animate-spin fill-primary block mx-auto"

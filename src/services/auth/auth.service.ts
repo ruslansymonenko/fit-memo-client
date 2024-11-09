@@ -61,10 +61,17 @@ class AuthService {
         method: 'POST',
       });
 
-      if (response.data.accessToken) saveAccessToken(response.data.accessToken);
+      console.log(response);
+
+      if (response.data.accessToken) {
+        saveAccessToken(response.data.accessToken);
+      } else {
+        await this.logout();
+      }
 
       return response;
     } catch (error) {
+      await this.logout();
       if (error instanceof Error) {
         throw error;
       } else {

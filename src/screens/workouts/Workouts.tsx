@@ -75,7 +75,7 @@ const Workouts: FC = () => {
     }
   };
 
-  const updateExerciseType = async (updatedData: IUpdateWorkout) => {
+  const updateWorkout = async (updatedData: IUpdateWorkout) => {
     try {
       if (elementToUpdate) {
         const data: Record<string, any> = {};
@@ -92,8 +92,6 @@ const Workouts: FC = () => {
           data.workoutTypeId = updatedData.workoutTypeId;
         if (updatedData.tagIds !== undefined && updatedData.tagIds)
           data.tagsIds = updatedData.tagIds;
-
-        console.log(updatedData, data);
 
         if (Object.keys(data).length !== 0) {
           const updatedWorkout = await workoutService.update(elementToUpdate, data);
@@ -134,7 +132,7 @@ const Workouts: FC = () => {
         <AddWorkout onAddWorkout={addNewWorkout} />
       </Modal>
       <Modal isVisible={isModalUpdateElementOpen}>
-        <UpdateWorkout onUpdateWorkout={updateExerciseType} />
+        <UpdateWorkout onUpdateWorkout={updateWorkout} />
       </Modal>
       <Modal isVisible={isModalDeleteCheckOpen}>
         <DeleteCheck

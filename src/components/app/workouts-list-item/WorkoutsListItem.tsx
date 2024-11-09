@@ -6,7 +6,7 @@ import cn from 'clsx';
 import { ITag } from '@/types/data-types/tag.interface';
 import Link from 'next/link';
 import { PRIVATE_URL } from '@/config/url.config';
-import { getStatusClass } from '@/utils/getStatusClass/getStatusClass';
+import { getStatusColor } from '@/utils/getStatusClass/getStatusColor';
 import styles from './WorkoutListItem.module.scss';
 import Image from 'next/image';
 import { SERVER_URL_WITHOUT_API_PREFIX } from '@/config/api.config';
@@ -121,7 +121,9 @@ const WorkoutsListItem: FC<IWorkoutsListItemProps> = ({ data }) => {
             <p className="text-sm font-light">{data.workoutType.name}</p>
           </div>
           <div className="flex items-center justify-center w-1/3">
-            <p className={cn(`font-bold`, getStatusClass(data.status))}>{data.status}</p>
+            <p className={cn(`font-bold`)} style={{ color: getStatusColor(data.status) }}>
+              {data.status}
+            </p>
           </div>
           <div className="flex w-1/3 justify-end">
             {data.tags

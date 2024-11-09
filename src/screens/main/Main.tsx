@@ -14,10 +14,14 @@ import { IUpdateWorkout, workoutService } from '@/services/workout/workout.servi
 import toast from 'react-hot-toast';
 import { getErrorMessage } from '@/utils/getErrorMessage/getErrorMessage';
 import { closeDeleteCheckModal } from '@/store/slices/modals/deleteCheckModalSlice';
-import { closeAddNewElementModal } from '@/store/slices/modals/addNewElementModalSlice';
+import {
+  closeAddNewElementModal,
+  openAddNewElementModal,
+} from '@/store/slices/modals/addNewElementModalSlice';
 import { closeUpdateElementModal } from '@/store/slices/modals/updateElementModalSlice';
 import AddWorkout from '@/components/app/forms/add-workout/AddWorkout';
 import UpdateWorkout from '@/components/app/forms/update-workout/UpdateWorkout';
+import AddButton from '@/components/common/add-button/AddButton';
 
 const Main: FC = () => {
   const { data, isLoading, error } = useGetAllWorkouts();
@@ -30,6 +34,10 @@ const Main: FC = () => {
   const isModalDeleteCheckOpen = useSelector((state: RootState) => state.deleteCheckModal.isOpen);
   const elementToDelete = useSelector((state: RootState) => state.deleteCheckModal.elementId);
   const dispatch: AppDispatch = useDispatch();
+
+  const handleOpenModal = () => {
+    dispatch(openAddNewElementModal());
+  };
 
   const deleteWorkout = async () => {
     try {
@@ -68,7 +76,7 @@ const Main: FC = () => {
     }
   };
 
-  const updateExerciseType = async (updatedData: IUpdateWorkout) => {
+  const updateWorkout = async (updatedData: IUpdateWorkout) => {
     try {
       if (elementToUpdate) {
         const data: Record<string, any> = {};
@@ -122,18 +130,23 @@ const Main: FC = () => {
     }
   }, [data]);
 
+  useEffect(() => {
+    console.log(error);
+  }, [error]);
+
   return (
     <>
       <section className="py-4 px-8">
         <Greeting />
         <h3 className="font-bold mb-2">Latest workouts</h3>
         {error ? <ErrorBlock /> : <WorkoutsList data={workoutsData} isLoading={isLoading} />}
+        <AddButton onClick={handleOpenModal} />
       </section>
       <Modal isVisible={isModalAddWorkoutOpen}>
         <AddWorkout onAddWorkout={addNewWorkout} />
       </Modal>
       <Modal isVisible={isModalUpdateElementOpen}>
-        <UpdateWorkout onUpdateWorkout={updateExerciseType} />
+        <UpdateWorkout onUpdateWorkout={updateWorkout} />
       </Modal>
       <Modal isVisible={isModalDeleteCheckOpen}>
         <DeleteCheck

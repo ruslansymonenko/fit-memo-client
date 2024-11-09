@@ -1,3 +1,5 @@
+'use client';
+
 import { FC } from 'react';
 import { IWorkoutResponse } from '@/types/server-response-types/workout-response.interface';
 import { getFormattedDate } from '@/utils/getFormattedDate/getFormattedDate';
@@ -5,14 +7,33 @@ import Image from 'next/image';
 import { SERVER_URL_WITHOUT_API_PREFIX } from '@/config/api.config';
 import Loader from '@/components/common/loader/Loader';
 import cn from 'clsx';
-import { getStatusClass } from '@/utils/getStatusClass/getStatusClass';
+import { getStatusColor } from '@/utils/getStatusClass/getStatusColor';
 import { convertMilliseconds } from '@/utils/convertMilliseconds/convertMilliseconds';
+import { SquarePen, Trash } from 'lucide-react';
+import { AppDispatch } from '@/store';
+import { useDispatch } from 'react-redux';
+import { openUpdateElementModal } from '@/store/slices/modals/updateElementModalSlice';
+import { openDeleteCheckModal } from '@/store/slices/modals/deleteCheckModalSlice';
 
 interface IWorkoutHeaderProps {
   workout: IWorkoutResponse | null;
 }
 
 const WorkoutHeader: FC<IWorkoutHeaderProps> = ({ workout }) => {
+  const dispatch: AppDispatch = useDispatch();
+
+  const openUpdateWorkoutModal = () => {
+    if (workout && workout.id) {
+      dispatch(openUpdateElementModal(workout.id));
+    }
+  };
+
+  const openDeleteCheck = () => {
+    if (workout && workout.id) {
+      dispatch(openDeleteCheckModal(workout.id));
+    }
+  };
+
   return (
     <div>
       {workout ? (
@@ -22,8 +43,22 @@ const WorkoutHeader: FC<IWorkoutHeaderProps> = ({ workout }) => {
               <h4 className="text-lg">Workout №: {workout.id}</h4>
               <h4 className="text-lg font-bold">{workout.name}</h4>
             </div>
-            <div>
-              <span>{getFormattedDate(workout.date)}</span>
+            <div className="flex flex-col items-center justify-start">
+              <span className="mb-2">{getFormattedDate(workout.date)}</span>
+              <div>
+                <button
+                  className="mx-2 cursor-pointer hover:text-rose-600 transition-colors"
+                  onClick={openUpdateWorkoutModal}
+                >
+                  <SquarePen />
+                </button>
+                <button
+                  className="mx-2 cursor-pointer hover:text-rose-600 transition-colors"
+                  onClick={openDeleteCheck}
+                >
+                  <Trash />
+                </button>
+              </div>
             </div>
           </div>
           <div className="border-b-2 pb-2">
@@ -43,7 +78,7 @@ const WorkoutHeader: FC<IWorkoutHeaderProps> = ({ workout }) => {
             <div className="flex items-center mb-2">
               <span className="mr-2 w-2/12">Status:</span>
               <div className="flex items-center">
-                <span className={cn('font-bold', getStatusClass(workout.status))}>
+                <span className={cn('font-bold')} style={{ color: getStatusColor(workout.status) }}>
                   {workout.status}
                 </span>
               </div>

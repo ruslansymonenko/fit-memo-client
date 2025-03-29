@@ -2,11 +2,11 @@ import { FC } from 'react';
 import ExerciseTypesListItem from '@/components/app/exercise-types-list-item/ExerciseTypesListItem';
 import { IExerciseTypeResponse } from '@/types/server-response-types/exercise-type-response';
 
-interface IExerciseTypesListProps {
+interface IProps {
   exerciseTypes: IExerciseTypeResponse[];
 }
 
-const ExerciseTypesList: FC<IExerciseTypesListProps> = ({ exerciseTypes }) => {
+const ExerciseTypesList: FC<IProps> = ({ exerciseTypes }) => {
   return (
     <ul>
       {exerciseTypes.map((item, index) => (

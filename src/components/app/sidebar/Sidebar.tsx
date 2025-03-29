@@ -1,7 +1,6 @@
 'use client';
 
 import { FC } from 'react';
-import styles from './Sidebar.module.scss';
 import Link from 'next/link';
 import { appPages } from '@/components/app/sidebar/nav-data';
 import { LogOut } from 'lucide-react';
@@ -15,13 +14,13 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/store';
 import { toggleIsSidebarOpen } from '@/store/slices/sidebarSlice';
 
-interface ISidebarProps {
+interface IProps {
   isOpen: boolean;
 }
 
-const Sidebar: FC<ISidebarProps> = ({ isOpen }) => {
+const Sidebar: FC<IProps> = ({ isOpen }) => {
   const router = useRouter();
-  const pathname = usePathname();
+  const pathname: string = usePathname();
   const dispatch: AppDispatch = useDispatch();
 
   const handleLogout = async () => {

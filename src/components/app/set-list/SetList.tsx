@@ -3,16 +3,16 @@ import { ISetResponse } from '@/types/server-response-types/set-response.interfa
 import SetListItem from '@/components/app/set-list-item/SetListItem';
 import { IMeasure } from '@/types/data-types/measure.interface';
 
-interface ISetListProps {
+interface IProps {
   sets: ISetResponse[];
   measure: IMeasure;
 }
 
-const SetList: FC<ISetListProps> = ({ sets, measure }) => {
+const SetList: FC<IProps> = ({ sets, measure }) => {
   return (
     <ul>
       {sets.map((item, index) => (
-        <SetListItem set={item} setNumber={index + 1} measure={measure} />
+        <SetListItem key={item.id} set={item} setNumber={index + 1} measure={measure} />
       ))}
     </ul>
   );

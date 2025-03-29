@@ -12,16 +12,13 @@ import {
   openAddNewElementModal,
 } from '@/store/slices/modals/addNewElementModalSlice';
 import Modal from '@/components/app/modals/Modal';
-import AddWorkoutType from '@/components/app/forms/add-workout-type/AddWorkoutType';
 import AddExerciseType from '@/components/app/forms/add-exercise-type/AddExerciseType';
 import toast from 'react-hot-toast';
-import { workoutTypesService } from '@/services/workout-types/workout-types.service';
 import { getErrorMessage } from '@/utils/getErrorMessage/getErrorMessage';
 import { exerciseTypeService } from '@/services/exercise-type/exercise-type.service';
 import { closeDeleteCheckModal } from '@/store/slices/modals/deleteCheckModalSlice';
 import DeleteCheck from '@/components/common/modals/delete-check/DeleteCheck';
 import { closeUpdateElementModal } from '@/store/slices/modals/updateElementModalSlice';
-import UpdateWorkoutType from '@/components/app/forms/update-workout-type/UpdateWorkoutType';
 import UpdateExerciseType from '@/components/app/forms/update-exercise-type/UpdateExerciseType';
 
 const ExerciseTypes: FC = () => {

@@ -5,11 +5,11 @@ import { IPricingData } from '@/components/presentation/pricing/pricing.data';
 import Button from '@/components/common/button/Button';
 import { SquareCheckBig, Check } from 'lucide-react';
 
-interface IPricingCardProps {
+interface IProps {
   data: IPricingData;
 }
 
-const PricingCard: FC<IPricingCardProps> = ({ data }) => {
+const PricingCard: FC<IProps> = ({ data }) => {
   return (
     <li className={styles.card}>
       <div>

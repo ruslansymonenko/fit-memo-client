@@ -4,14 +4,14 @@ import { FC } from 'react';
 import { X, TrashIcon } from 'lucide-react';
 import Button from '@/components/common/button/Button';
 
-interface IDeleteCheckProps {
+interface IProps {
   onConfirm: () => void;
   onCancel: () => void;
   message: string;
   onClose: () => void;
 }
 
-const DeleteCheck: FC<IDeleteCheckProps> = ({ onConfirm, onCancel, message, onClose }) => {
+const DeleteCheck: FC<IProps> = ({ onConfirm, onCancel, message, onClose }) => {
   return (
     <div className="w-full max-w-lg bg-white shadow-lg rounded-lg p-6 relative">
       <button className="absolute top-4 right-4" onClick={onClose}>

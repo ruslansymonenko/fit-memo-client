@@ -1,6 +1,7 @@
 import { axiosPrivate } from '@/api/api.interceptors';
 import { API_URL } from '@/config/api.config';
 import { ISet } from '@/types/data-types/set.interface';
+import { ISetResponse } from '@/types/server-response-types/set-response.interface';
 
 enum EnumSetPaths {
   CREATE = '/create',
@@ -21,7 +22,7 @@ interface IUpdateSet {
 class SetService {
   async create(data: ICreateSet) {
     try {
-      const response = await axiosPrivate<ISet>({
+      const response = await axiosPrivate<ISetResponse>({
         url: API_URL.set(EnumSetPaths.CREATE),
         method: 'POST',
         data: data,
@@ -39,7 +40,7 @@ class SetService {
 
   async getById(id: number) {
     try {
-      const response = await axiosPrivate<ISet>({
+      const response = await axiosPrivate<ISetResponse>({
         url: API_URL.set(`${EnumSetPaths.GET_BY_ID}/${id}`),
         method: 'GET',
       });
@@ -56,7 +57,7 @@ class SetService {
 
   async getByExerciseId(id: number) {
     try {
-      const response = await axiosPrivate<ISet>({
+      const response = await axiosPrivate<ISetResponse>({
         url: API_URL.set(`${EnumSetPaths.GET_BY_EXERCISE_ID}/${id}`),
         method: 'GET',
       });
@@ -73,7 +74,7 @@ class SetService {
 
   async update(id: number, data: IUpdateSet) {
     try {
-      const response = await axiosPrivate<ISet>({
+      const response = await axiosPrivate<ISetResponse>({
         url: API_URL.set(`${EnumSetPaths.UPDATE}/${id}`),
         method: 'PUT',
         data: data,
@@ -91,7 +92,7 @@ class SetService {
 
   async delete(id: number) {
     try {
-      const response = await axiosPrivate<ISet>({
+      const response = await axiosPrivate<ISetResponse>({
         url: API_URL.set(`${EnumSetPaths.DELETE}/${id}`),
         method: 'DELETE',
       });

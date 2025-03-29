@@ -1,11 +1,11 @@
 import { FC, ReactNode } from 'react';
 
-interface IModalProps {
+interface IProps {
   children: ReactNode;
   isVisible: boolean;
 }
 
-const Modal: FC<IModalProps> = ({ children, isVisible }) => {
+const Modal: FC<IProps> = ({ children, isVisible }) => {
   return (
     <div
       className={`${

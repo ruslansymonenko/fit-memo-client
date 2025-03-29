@@ -1,14 +1,14 @@
 import { EnumWorkoutStatus } from '@/types/data-types/workout.interface';
 
-export const getStatusClass = (status: string) => {
+export const getStatusColor = (status: string) => {
   switch (status) {
     case EnumWorkoutStatus.NEW:
-      return 'text-new';
+      return '#74b9ff';
     case EnumWorkoutStatus.IN_PROGRESS:
-      return 'text-inProgress';
+      return '#ff7675';
     case EnumWorkoutStatus.DONE:
-      return 'text-done';
+      return '#00b894';
     default:
-      return 'text-fontDark';
+      return '#0f172a';
   }
 };

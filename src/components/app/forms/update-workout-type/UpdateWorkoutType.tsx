@@ -10,11 +10,11 @@ import { IWorkoutTypeIcons } from '@/types/data-types/workout-type-icons.interfa
 import { SERVER_URL_WITHOUT_API_PREFIX } from '@/config/api.config';
 import { closeUpdateElementModal } from '@/store/slices/modals/updateElementModalSlice';
 
-interface IUpdateWorkoutTypeProps {
+interface IProps {
   onUpdateWorkoutType: (name: string, selectedIconId: number | null) => void;
 }
 
-const UpdateWorkoutType: FC<IUpdateWorkoutTypeProps> = ({ onUpdateWorkoutType }) => {
+const UpdateWorkoutType: FC<IProps> = ({ onUpdateWorkoutType }) => {
   const dispatch: AppDispatch = useDispatch();
   const [selectedIconId, setSelectedIconId] = useState<number | null>(null);
   const { data, isLoading, error } = useGetAllWorkoutsTypeIcons();

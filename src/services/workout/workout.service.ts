@@ -16,19 +16,19 @@ enum EnumWorkoutPaths {
 interface ICreateWorkout {
   name: string;
   date?: string;
-  status: EnumWorkoutStatus;
-  duration: number; //in ms
+  status?: EnumWorkoutStatus;
+  duration?: number; //in ms
   workoutTypeId: number;
 }
 
-interface IUpdateWorkout {
+export interface IUpdateWorkout {
   name?: string;
   isFavorite?: boolean;
-  date?: string;
+  date?: Date;
   status?: EnumWorkoutStatus;
   duration?: number; //in ms
   workoutTypeId?: number;
-  tagIds: number[];
+  tagIds?: number[];
 }
 
 interface IToggleTags {
@@ -91,7 +91,7 @@ class WorkoutService {
   async update(id: number, data: IUpdateWorkout) {
     try {
       const response = await axiosPrivate<IWorkoutResponse>({
-        url: API_URL.workoutType(`${EnumWorkoutPaths.UPDATE}/${id}`),
+        url: API_URL.workout(`${EnumWorkoutPaths.UPDATE}/${id}`),
         method: 'PUT',
         data: data,
       });
@@ -109,7 +109,7 @@ class WorkoutService {
   async toggleTags(id: number, type: TypeToggleTags, data: IToggleTags) {
     try {
       const response = await axiosPrivate<IWorkoutResponse>({
-        url: API_URL.workoutType(`${EnumWorkoutPaths.UPDATE}/${id}?type=${type}`),
+        url: API_URL.workout(`${EnumWorkoutPaths.UPDATE}/${id}?type=${type}`),
         method: 'PUT',
         data: data,
       });
@@ -127,7 +127,7 @@ class WorkoutService {
   async delete(id: number) {
     try {
       const response = await axiosPrivate<IWorkoutResponse>({
-        url: API_URL.workoutType(`${EnumWorkoutPaths.DELETE}/${id}`),
+        url: API_URL.workout(`${EnumWorkoutPaths.DELETE}/${id}`),
         method: 'DELETE',
       });
 

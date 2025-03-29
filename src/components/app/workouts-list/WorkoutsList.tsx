@@ -5,12 +5,12 @@ import WorkoutsListItem from '@/components/app/workouts-list-item/WorkoutsListIt
 import Loader from '@/components/common/loader/Loader';
 import { IWorkoutResponse } from '@/types/server-response-types/workout-response.interface';
 
-interface IWorkoutsListProps {
+interface IProps {
   data: IWorkoutResponse[];
   isLoading: boolean;
 }
 
-const WorkoutsList: FC<IWorkoutsListProps> = ({ data, isLoading }) => {
+const WorkoutsList: FC<IProps> = ({ data, isLoading }) => {
   return (
     <div>
       <ul className="flex flex-col">

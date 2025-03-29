@@ -10,11 +10,11 @@ export interface IAccordionItem {
   text: string;
 }
 
-export interface IAccordionProps {
+export interface IProps {
   items: IAccordionItem[];
 }
 
-const Accordion: FC<IAccordionProps> = ({ items }) => {
+const Accordion: FC<IProps> = ({ items }) => {
   const [openIndexes, setOpenIndexes] = useState<boolean[]>(Array(items.length).fill(false));
 
   const toggleItem = (index: number): void => {

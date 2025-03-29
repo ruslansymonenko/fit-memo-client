@@ -1,7 +1,13 @@
 import { FC } from 'react';
+import cn from 'clsx';
 
-const ErrorBlock: FC = () => {
-  return <div>Some error, please try later</div>;
+interface IProps {
+  text?: string;
+  className?: string;
+}
+
+const ErrorBlock: FC<IProps> = ({ text, className }) => {
+  return <div className={cn('', className)}>{text ? text : 'Some error, please try later'}</div>;
 };
 
 export default ErrorBlock;

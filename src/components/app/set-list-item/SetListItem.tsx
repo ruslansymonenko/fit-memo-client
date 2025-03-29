@@ -3,13 +3,13 @@ import { ISetResponse } from '@/types/server-response-types/set-response.interfa
 import { IMeasure } from '@/types/data-types/measure.interface';
 import RepeatsList from '@/components/app/repeats-list/RepeatsList';
 
-interface ISetListItemProps {
+interface IProps {
   set: ISetResponse;
   setNumber: number;
   measure: IMeasure;
 }
 
-const SetListItem: FC<ISetListItemProps> = ({ set, setNumber, measure }) => {
+const SetListItem: FC<IProps> = ({ set, setNumber, measure }) => {
   return (
     <div className="flex items-center border-2 py-1 w-6/12 justify-center h-20 rounded-md">
       <div className="font-bold w-1/2 flex items-center justify-center border-r-2 h-full">

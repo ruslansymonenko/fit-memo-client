@@ -1,16 +1,18 @@
 import { FC } from 'react';
 import { IExerciseResponse } from '@/types/server-response-types/exercise-response.interface';
 import ExerciseListItem from '@/components/app/exercise-list-item/ExerciseListItem';
+import cn from 'clsx';
 
-interface IExampleListProps {
+interface IProps {
   exercises: IExerciseResponse[];
+  className?: string;
 }
 
-const ExerciseList: FC<IExampleListProps> = ({ exercises }) => {
+const ExerciseList: FC<IProps> = ({ exercises, className }) => {
   return (
-    <ul>
+    <ul className={cn('', className)}>
       {exercises.map((item, index) => (
-        <ExerciseListItem exercise={item} exerciseNumber={index + 1} />
+        <ExerciseListItem key={item.id} exercise={item} exerciseNumber={index + 1} />
       ))}
     </ul>
   );
